@@ -73,7 +73,7 @@ const useApiHook = (options: {
   onErrorCallback?: (error: any) => void;
 }) => {
   const queryClient = useQueryClient();
-  const { addError } = useInterfaceStore((state) => state);
+  const { addAlert } = useInterfaceStore((state) => state);
   const router = useRouter();
 
   const {
@@ -124,7 +124,7 @@ const useApiHook = (options: {
       fetchData(url ? url : (data.url as any), method, data.formData),
     onSuccess: (data: any) => {
       if (successMessage) {
-        addError({ id: uuidv4(), message: successMessage, type: "success" });
+        addAlert({ id: uuidv4(), message: successMessage, type: "success", duration: 5000 });
       }
 
       queriesToInvalidate?.forEach((query: string) => {
@@ -141,7 +141,7 @@ const useApiHook = (options: {
     },
     onError: (error: any) => {
       console.log(error);
-      addError({ id: uuidv4(), message: error.message, type: "error" });
+      addAlert({ id: uuidv4(), message: error.message, type: "error", duration: 5000 });
       if (onErrorCallback) {
         onErrorCallback(error);
       }

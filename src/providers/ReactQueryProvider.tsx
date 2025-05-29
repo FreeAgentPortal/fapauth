@@ -5,14 +5,14 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useInterfaceStore } from "@/state/interface";
 
 function ReactQueryProvider({ children }: React.PropsWithChildren) {
-  const { addError } = useInterfaceStore.getState();
+  const { addAlert } = useInterfaceStore.getState();
   const [client] = useState(
     new QueryClient({
       queryCache: new QueryCache({
         onError: (error) => {
           console.log(error);
-          addError({
-            type: "query",
+          addAlert({
+            type: "info",
             message: error instanceof Error ? error.message : "An unknown error occurred",
           });
         },
