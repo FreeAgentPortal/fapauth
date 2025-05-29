@@ -1,10 +1,12 @@
 // app/auth/login/page.tsx
-import { Metadata } from 'next';
+import AuthModal from '@/layout/authModal/AuthModal.layout';
+import { Metadata } from 'next'; 
+import LoginForm from './forms/loginForm/LoginForm.form';
 
 export const metadata: Metadata = {
   title: 'Login | Free Agent Portal',
   description: 'Securely log in to your Free Agent Portal account to access your athlete, team, or scout profile.',
-  robots: 'noindex, nofollow', // optional for private apps
+  robots: 'noindex, nofollow',
   openGraph: {
     title: 'Login | Free Agent Portal',
     description: 'Securely access your Free Agent Portal account.',
@@ -28,13 +30,19 @@ export const metadata: Metadata = {
   },
 };
 
-
-export default function Page() {
+export default function LoginPage() {
   return (
-    <div>
-      <h1>Authentication Page</h1>
-      <p>Please log in or sign up to continue.</p>
-      {/* Add your authentication form or components here */}
-    </div>
+    <AuthModal
+      title="Welcome Back"
+      subtitle="Enter your credentials to continue"
+      footer={
+        <p>
+          Don't have an account?{' '}
+          <a href="/auth/register">Register →</a>
+        </p>
+      }
+    > 
+      <LoginForm />
+    </AuthModal>
   );
 }

@@ -1,0 +1,31 @@
+"use client";
+import React, { useState } from "react";
+import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";  
+import { useInterfaceStore } from "@/state/interface";
+
+function ReactQueryProvider({ children }: React.PropsWithChildren) {
+  const { addError } = useInterfaceStore.getState();
+  const [client] = useState(
+    new QueryClient({
+      queryCache: new QueryCache({
+        onError: (error) => {
+          console.log(error);
+          addError({
+            type: "query",
+            message: error instanceof Error ? error.message : "An unknown error occurred",
+          });
+        },
+      }),
+    })
+  );
+
+  return (
+    <QueryClientProvider client={client}> 
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} /> 
+    </QueryClientProvider>
+  );
+}
+
+export default ReactQueryProvider;

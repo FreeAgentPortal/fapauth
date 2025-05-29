@@ -1,14 +1,16 @@
 // styles/auth.scss
+@use "@/styles/globals.scss" as *;
 
 .authLayout {
   position: relative;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  height: 100svh;
+  width: 100svw;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #000; // fallback
+  overflow-y: scroll; 
+ 
   .authBackground {
     position: absolute;
     width: 100%;
@@ -27,6 +29,7 @@
     align-items: center;
     padding: 2rem;
     .authContainer {
+      margin: 5% 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -46,7 +49,7 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 1rem;
     padding: 2rem;
-    width: 100%; 
+    width: 100%;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     color: white;
   }
