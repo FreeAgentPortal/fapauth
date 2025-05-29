@@ -1,0 +1,35 @@
+.authCardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 2rem;
+  .authCard {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: 220px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    justify-content: space-between;
+    .authCardBtn {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 0.5rem 1.2rem;
+      border-radius: 0.5rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    
+      &:hover {
+        background: rgba(255, 255, 255, 0.35);
+      }
+    }
+  }
+  
+}
+
