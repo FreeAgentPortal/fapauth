@@ -17,6 +17,16 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // redirect to the /auth route if the user hits the / route
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/auth",
+        permanent: false,
+      },
+    ];
+  } 
 };
 
 export default nextConfig;
