@@ -20,6 +20,7 @@ const fetchData = async (url: string, method: "GET" | "POST" | "PUT" | "DELETE",
         }`,
         defaultSort = options?.defaultSort || store.getState().sort,
         defaultInclude = options?.defaultInclude || store.getState().include,
+        defaultParams = options?.defaultParams || store.getState().params,
       } = options || {};
 
       response = await axios.get(url, {
@@ -30,6 +31,7 @@ const fetchData = async (url: string, method: "GET" | "POST" | "PUT" | "DELETE",
           filterOptions: defaultFilter,
           sortOptions: defaultSort,
           includeOptions: defaultInclude,
+          ...defaultParams,
         },
       });
 
@@ -57,6 +59,7 @@ const useApiHook = (options: {
   url?: string;
   key: string | Array<string | number>;
   filter?: any;
+  params?: any;
   keyword?: string;
   sort?: any;
   include?: any;
@@ -81,6 +84,7 @@ const useApiHook = (options: {
     url,
     key,
     filter,
+    params,
     limit,
     sort,
     include,
@@ -108,6 +112,7 @@ const useApiHook = (options: {
         defaultInclude: include,
         defaultPageLimit: limit,
         defaultPageNumber: pageNumber,
+        defaultParams: params,
       }),
     enabled: enabled && method === "GET",
     refetchOnWindowFocus,

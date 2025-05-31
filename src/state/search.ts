@@ -24,6 +24,7 @@ interface SearchLayout {
   sort: string;
   queryKey: string;
   include: string;
+  params?: any;
 }
 
 export const useSearchStore = create<SearchLayout>((set) => ({

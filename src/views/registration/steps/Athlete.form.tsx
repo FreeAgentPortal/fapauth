@@ -47,29 +47,25 @@ const Athlete = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <h2 className={styles.heading}>Athlete Profile</h2>
-      <p>Here you will build information about yourself
-        to help teams and scouts find you.
+      <p>
+        Here you will build information about yourself to help teams and scouts
+        find you.
       </p>
 
-      {userDefaults && (
-        <>
-          <div className={styles.field}>
-            <label>Full Name</label>
-            <input
-              type="text"
-              value={`${userDefaults.firstName} ${userDefaults.lastName}`}
-              disabled
-              readOnly
-            />
-          </div>
+      <div className={styles.field}>
+        <label>Full Name</label>
+        <input
+          type="text"
+          value={`${userDefaults?.firstName} ${userDefaults?.lastName}`.trim()}
+          disabled
+          readOnly
+        />
+      </div>
 
-          <div className={styles.field}>
-            <label>Email</label>
-            <input type="email" value={userDefaults.email} />
-          </div>
-        </>
-      )}
-
+      <div className={styles.field}>
+        <label>Email</label>
+        <input type="email" value={userDefaults?.email ?? ""} />
+      </div>
       <div className={styles.field}>
         <label>Contact Number</label>
         <input
@@ -78,10 +74,11 @@ const Athlete = ({
             required: 'Contact number is required',
             validate: {
               validFormat: (value) => {
-                const phoneRegex = /^(?:\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4})$/;
+                const phoneRegex =
+                  /^(?:\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4})$/;
                 return phoneRegex.test(value) || 'Invalid phone number format';
               },
-            }
+            },
           })}
         />
         {errors.contactNumber && (

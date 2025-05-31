@@ -32,7 +32,7 @@ export default function RegistrationController({
     ...(roles.includes('athlete')
       ? [{ name: 'athlete', component: <Athlete onNext={handleNext} onBack={handleBack} defaultValues={formData.athlete} userDefaults={formData.user} /> }]
       : []),
-    // ...(roles.includes('team') ? [{ name: 'team', component: <Team onNext={handleNext} onBack={handleBack} defaultValues={formData.team} /> }] : []),
+    ...(roles.includes('team') ? [{ name: 'team', component: <Team onNext={handleNext} onBack={handleBack} defaultValues={formData.team} /> }] : []),
     // ...(roles.includes('agent') ? [{ name: 'agent', component: <Agent onNext={handleNext} onBack={handleBack} defaultValues={formData.agent} /> }] : []),
     // { name: 'final', component: <FinalStep formData={formData} /> },
   ] as StepProps[];

@@ -14,6 +14,7 @@ function ReactQueryProvider({ children }: React.PropsWithChildren) {
           addAlert({
             type: "info",
             message: error instanceof Error ? error.message : "An unknown error occurred",
+            duration: 5000,
           });
         },
       }),
