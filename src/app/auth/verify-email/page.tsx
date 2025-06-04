@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import VerifyEmailView from '@/views/VerifyEmail.view';
+import VerifyEmailView from '@/views/verifyEmail/VerifyEmail.view';
 
 export const metadata: Metadata = {
   title: 'Verify Email | Free Agent Portal',
