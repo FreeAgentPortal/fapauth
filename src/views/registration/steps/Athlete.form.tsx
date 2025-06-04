@@ -12,6 +12,8 @@ interface AthleteFormProps {
 }
 
 type AthleteFormData = {
+  fullName: string;
+  email?: string;
   contactNumber: string;
   birthdate: string;
   college?: string;
@@ -30,6 +32,8 @@ const Athlete = ({
     reset,
   } = useForm<AthleteFormData>({
     defaultValues: defaultValues || {
+      fullName: `${userDefaults?.firstName || ''} ${userDefaults?.lastName || ''}`.trim(), 
+      email: userDefaults?.email || '',
       contactNumber: '234-234-4234',
       birthdate: new Date('12/12/2000').toISOString().split('T')[0],
       college: 'University of Georgia',
@@ -56,6 +60,10 @@ const Athlete = ({
         <label>Full Name</label>
         <input
           type="text"
+          placeholder="e.g. John Doe"
+          {...register('fullName', {
+            required: 'Full name is required',
+          })}
           value={`${userDefaults?.firstName} ${userDefaults?.lastName}`.trim()}
           disabled
           readOnly

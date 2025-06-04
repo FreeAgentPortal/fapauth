@@ -146,7 +146,8 @@ const useApiHook = (options: {
     },
     onError: (error: any) => {
       console.log(error);
-      addAlert({ id: uuidv4(), message: error.message, type: "error", duration: 5000 });
+      const message = error.response?.data?.message || error.message || "An error occurred";
+      addAlert({ id: uuidv4(), message, type: "error", duration: 5000 });
       if (onErrorCallback) {
         onErrorCallback(error);
       }

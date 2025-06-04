@@ -15,6 +15,7 @@ type UserFormData = {
   email: string;
   password: string;
   confirmPassword: string;
+  phoneNumber: string;
 };
 
 const User = ({ onNext, defaultValues }: UserFormProps) => {
@@ -26,11 +27,12 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
     reset,
   } = useForm<UserFormData>({
     defaultValues: defaultValues || {
-      firstName: "test",
+      firstName: 'test',
       lastName: 'lastName',
       email: 'test@test.edu',
       password: 'Password123',
       confirmPassword: 'Password123',
+      phoneNumber: '234-234-4234',
     },
   });
   useEffect(() => {
@@ -44,20 +46,12 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={`${formStyles.form} ${styles.container}`}>
       <h2 className={formStyles.heading}>Create your account</h2>
-      <p className={formStyles.subheading}>
-        Please fill out the form below to create your account. This information
-        is for your ability to login and manage your profile.
-      </p>
+      <p className={formStyles.subheading}>Please fill out the form below to create your account. This information is for your ability to login and manage your profile.</p>
       <div className={formStyles.row}>
         <div className={formStyles.field}>
           <label>First Name</label>
-          <input
-            type="text"
-            {...register('firstName', { required: 'First name is required' })}
-          />
-          {errors.firstName && (
-            <span className={formStyles.error}>{errors.firstName.message}</span>
-          )}
+          <input type="text" {...register('firstName', { required: 'First name is required' })} />
+          {errors.firstName && <span className={formStyles.error}>{errors.firstName.message}</span>}
         </div>
 
         <div className={formStyles.field}>
@@ -69,49 +63,64 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
         <label>Email</label>
         <input
           type="email"
-          {...register('email', { required: 'Email is required', validate:{
-            email: (value) =>
-              // basic email validation, also can only be of type .edu, .org, etc.
-              /^\S+@\S+\.\S+$/.test(value) || 'Invalid email format',
-            notTaken: async (value) => {
-              // Simulate API check
-              const isTaken = false; // Replace with actual API call
-              return !isTaken || 'Email is already taken';
+          {...register('email', {
+            required: 'Email is required',
+            validate: {
+              email: (value) =>
+                // basic email validation, also can only be of type .edu, .org, etc.
+                /^\S+@\S+\.\S+$/.test(value) || 'Invalid email format',
+              notTaken: async (value) => {
+                // Simulate API check
+                const isTaken = false; // Replace with actual API call
+                return !isTaken || 'Email is already taken';
+              },
             },
-          } })}
-        />
-        {errors.email && (
-          <span className={formStyles.error}>{errors.email.message}</span>
-        )}
-      </div>
-
-      <div className={formStyles.field}>
-        <label>Password</label>
-        <input
-          type="password"
-          {...register('password', {
-            required: 'Password is required',
-            minLength: { value: 10, message: 'Minimum 10 characters' },
           })}
         />
-        {errors.password && (
-          <span className={formStyles.error}>{errors.password.message}</span>
-        )}
+        {errors.email && <span className={formStyles.error}>{errors.email.message}</span>}
       </div>
-
       <div className={formStyles.field}>
-        <label>Confirm Password</label>
+        {/* phoneNumber */}
+        <label>Phone Number</label>
         <input
-          type="password"
-          {...register('confirmPassword', {
-            required: 'Please confirm password',
-            validate: (val) =>
-              val === watch('password') || 'Passwords do not match',
+          type="tel"
+          {...register('phoneNumber', {
+            required: 'Phone number is required',
+            validate: {
+              validFormat: (value) => {
+                const phoneRegex = /^(?:\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4})$/;
+                return phoneRegex.test(value) || 'Invalid phone number format';
+              },
+            },
           })}
         />
-        {errors.confirmPassword && (
-          <span className={formStyles.error}>{errors.confirmPassword.message}</span>
-        )}
+        {errors.phoneNumber && <span className={formStyles.error}>{errors.phoneNumber.message}</span>}
+      </div>
+
+      <div className={formStyles.row}>
+        <div className={formStyles.field}>
+          <label>Password</label>
+          <input
+            type="password"
+            {...register('password', {
+              required: 'Password is required',
+              minLength: { value: 10, message: 'Minimum 10 characters' },
+            })}
+          />
+          {errors.password && <span className={formStyles.error}>{errors.password.message}</span>}
+        </div>
+
+        <div className={formStyles.field}>
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            {...register('confirmPassword', {
+              required: 'Please confirm password',
+              validate: (val) => val === watch('password') || 'Passwords do not match',
+            })}
+          />
+          {errors.confirmPassword && <span className={formStyles.error}>{errors.confirmPassword.message}</span>}
+        </div>
       </div>
 
       <button type="submit" className={formStyles.submit}>

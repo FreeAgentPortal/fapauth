@@ -6,6 +6,8 @@ import Team from './steps/Team.form';
 import Agent from './steps/Agent.form';
 import { AnimatePresence, motion } from 'framer-motion';
 import Athlete from './steps/Athlete.form';
+import FinalStep from './steps/FinalStep.step';
+import Verification from './steps/Verification.step';
 
 interface RegistrationControllerProps {
   roles: string[];
@@ -18,12 +20,10 @@ interface StepProps {
   defaultValues?: any;
 }
 
-export default function RegistrationController({
-  roles,
-}: RegistrationControllerProps) {
+export default function RegistrationController({ roles }: RegistrationControllerProps) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [formData, setFormData] = useState<any>({});
-
+  console.log(formData);
   const steps = [
     {
       name: 'user',
@@ -33,6 +33,18 @@ export default function RegistrationController({
       ? [{ name: 'athlete', component: <Athlete onNext={handleNext} onBack={handleBack} defaultValues={formData.athlete} userDefaults={formData.user} /> }]
       : []),
     ...(roles.includes('team') ? [{ name: 'team', component: <Team onNext={handleNext} onBack={handleBack} defaultValues={formData.team} /> }] : []),
+    {
+      name: 'submit',
+      component: (
+        <FinalStep
+          formData={formData}
+          advStep={() => {
+            setCurrentStepIndex((i) => Math.min(i + 1, steps.length - 1));
+          }}
+        />
+      ),
+    },
+    { name: 'verification', component: <Verification email={formData.user?.email} /> },
     // ...(roles.includes('agent') ? [{ name: 'agent', component: <Agent onNext={handleNext} onBack={handleBack} defaultValues={formData.agent} /> }] : []),
     // { name: 'final', component: <FinalStep formData={formData} /> },
   ] as StepProps[];
@@ -48,13 +60,7 @@ export default function RegistrationController({
 
   return (
     <AnimatePresence mode="wait">
-      <motion.div
-        key={stepKey}
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -30 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-      >
+      <motion.div key={stepKey} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
         {steps[currentStepIndex].component}
       </motion.div>
     </AnimatePresence>
