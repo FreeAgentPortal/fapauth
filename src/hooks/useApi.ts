@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import decryptData from "@/utils/decryptData";
-import { useSearchStore as store } from "./search";
+import { useSearchStore as store } from "@/state/search";
 import { useInterfaceStore } from "@/state/interface";
 import { v4 as uuidv4 } from "uuid";
 
