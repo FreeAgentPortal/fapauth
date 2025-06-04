@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import styles from './LoginForm.module.scss';
 import { useState } from 'react';
-import useApiHook from '@/state/useApi';
+import useApiHook from '@/hooks/useApi';
 import { useInterfaceStore } from '@/state/interface';
 
 type LoginFormData = {
@@ -33,7 +33,7 @@ export default function LoginForm() {
       },
       {
         onSuccess: (response: any) => {
-          console.log('Login successful:', response); 
+          console.log('Login successful:', response);
         },
         onError: (error: any) => {
           console.error('Login failed:', error);
@@ -47,30 +47,16 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.formGroup}>
         <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="you@example.com"
-          {...register('email', { required: 'Email is required' })}
-        />
-        {errors.email && (
-          <span className={styles.error}>{errors.email.message}</span>
-        )}
+        <input type="email" id="email" placeholder="you@example.com" {...register('email', { required: 'Email is required' })} />
+        {errors.email && <span className={styles.error}>{errors.email.message}</span>}
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="password">Password</label>
         <div className={styles.passwordInput}>
-          <input
-            type={'password'}
-            id="password"
-            placeholder="••••••••"
-            {...register('password', { required: 'Password is required' })}
-          />
+          <input type={'password'} id="password" placeholder="••••••••" {...register('password', { required: 'Password is required' })} />
         </div>
-        {errors.password && (
-          <span className={styles.error}>{errors.password.message}</span>
-        )}
+        {errors.password && <span className={styles.error}>{errors.password.message}</span>}
       </div>
 
       <button type="submit" className={styles.submitButton}>

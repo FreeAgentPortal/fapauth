@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './Steps.module.scss';
-import useApiHook from '@/state/useApi';
+import useApiHook from '@/hooks/useApi';
 
 type VerificationProps = {
   email?: string;
 };
 
 const Verification = ({ email }: VerificationProps) => {
-
   const { mutate: resendVerificationEmail } = useApiHook({
     method: 'POST',
     key: 'resendVerificationEmail',

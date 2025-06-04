@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import formStyles from '@/styles/Form.module.scss';
 import styles from './Steps.module.scss';
-import useApiHook from '@/state/useApi';
+import useApiHook from '@/hooks/useApi';
 
 interface UserFormProps {
   onNext: (stepName: string, data: UserFormData) => void;

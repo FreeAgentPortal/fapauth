@@ -2,9 +2,9 @@
 
 import { useForm } from 'react-hook-form';
 import React, { useEffect } from 'react';
-import styles from './Steps.module.scss'
+import styles from './Steps.module.scss';
 import formStyles from '@/styles/Form.module.scss';
-import useApiHook from '@/state/useApi';
+import useApiHook from '@/hooks/useApi';
 import { get } from 'http';
 import { exists } from 'fs';
 
