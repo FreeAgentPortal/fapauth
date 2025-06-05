@@ -6,6 +6,8 @@ import { useUserStore } from '@/state/user';
 import { useInterfaceStore } from '@/state/interface';
 import Modal from '@/components/modal/Modal.component';
 import Loader from '@/components/loader/Loader.component';
+import { LoaderProvider } from '@/components/progressBar/LoaderProvider.component';
+import { useLoader } from '@/components/progressBar/useLoader';
 type Props = {
   children: React.ReactNode;
 };
@@ -80,8 +82,7 @@ const AuthPage = (props: Props) => {
       <div className={styles.container}>
         <div className={styles.auth}>
           {redirectName && <div className={styles.banner}>{redirectName}</div>}
-
-          {props.children}
+          <LoaderProvider>{props.children}</LoaderProvider>
         </div>
       </div>
     </div>

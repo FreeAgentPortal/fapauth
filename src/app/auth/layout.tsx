@@ -7,6 +7,7 @@ import ReactQueryProvider from '@/providers/ReactQueryProvider';
 import AlertCenter from '@/layout/alertCenter/AlertCenter.layout';
 import Footer from '@/layout/footer/Footer.layout';
 import AuthPage from '@/layout/authPage/AuthPage.layout';
+import { LoaderProvider } from '@/components/progressBar/LoaderProvider.component';
 
 export const metadata: Metadata = {
   title: 'Authentication | Free Agent Portal',
