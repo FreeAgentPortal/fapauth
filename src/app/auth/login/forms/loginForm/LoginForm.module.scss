@@ -78,6 +78,17 @@
   font-size: 0.85rem;
 }
 
+.forgotPassword {
+  align-self: flex-end;
+  font-size: 0.85rem;
+  color: #ccc;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 @include mobile {
   .form {
     gap: 1rem;
