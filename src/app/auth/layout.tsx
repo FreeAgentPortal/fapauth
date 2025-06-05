@@ -4,8 +4,9 @@ import styles from './layout.module.scss';
 import Logo from '@/components/Logo.component';
 import { Metadata } from 'next';
 import Image from 'next/image';
-import ReactQueryProvider from '@/providers/ReactQueryProvider'; 
+import ReactQueryProvider from '@/providers/ReactQueryProvider';
 import AlertCenter from '@/layout/alertCenter/AlertCenter.layout';
+import Footer from '@/layout/footer/Footer.layout';
 
 export const metadata: Metadata = {
   title: 'Authentication | Free Agent Portal',
@@ -52,6 +53,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <ReactQueryProvider>
             <main className={styles.authModal}>{children}</main>
           </ReactQueryProvider>
+          <Footer />
         </div>
       </div>
     </div>
