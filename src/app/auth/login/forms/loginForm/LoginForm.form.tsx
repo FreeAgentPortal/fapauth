@@ -19,9 +19,6 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
-
-  const router = useRouter();
-  const token = useUserStore((state) => state.token);
   const { setToken } = useUserStore.getState();
 
   const { mutate: login } = useApiHook({
@@ -29,13 +26,6 @@ export default function LoginForm() {
     key: 'login',
     successMessage: 'Login successful',
   }) as any;
-  const { addAlert } = useInterfaceStore.getState();
-
-  useEffect(() => {
-    if (token) {
-      router.push('/');
-    }
-  }, [token, router]);
 
   const onSubmit = (data: LoginFormData) => {
     login(
