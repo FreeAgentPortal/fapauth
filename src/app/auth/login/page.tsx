@@ -1,7 +1,8 @@
 // app/auth/login/page.tsx
 import AuthModal from '@/layout/authModal/AuthModal.layout';
-import { Metadata } from 'next'; 
+import { Metadata } from 'next';
 import LoginForm from './forms/loginForm/LoginForm.form';
+import styles from './forms/loginForm/LoginForm.module.scss'
 
 export const metadata: Metadata = {
   title: 'Login | Free Agent Portal',
@@ -36,12 +37,18 @@ export default function LoginPage() {
       title="Welcome Back"
       subtitle="Enter your credentials to continue"
       footer={
-        <p>
-          Don't have an account?{' '}
-          <a href="/auth/register">Register →</a>
-        </p>
+        <>
+          <p>
+            Don't have an account? <a href="/auth/register">Register →</a>
+          </p>
+          <p>
+            <a href="/auth/forgot-password" className={styles.forgotPassword}>
+              Forgot password?
+            </a>
+          </p>
+        </>
       }
-    > 
+    >
       <LoginForm />
     </AuthModal>
   );

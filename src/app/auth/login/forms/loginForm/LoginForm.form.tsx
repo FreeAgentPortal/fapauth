@@ -57,9 +57,6 @@ export default function LoginForm() {
           <input type={'password'} id="password" placeholder="••••••••" {...register('password', { required: 'Password is required' })} />
         </div>
         {errors.password && <span className={styles.error}>{errors.password.message}</span>}
-        <a href="/auth/forgot-password" className={styles.forgotPassword}>
-          Forgot password?
-        </a>
       </div>
 
       <button type="submit" className={styles.submitButton}>
