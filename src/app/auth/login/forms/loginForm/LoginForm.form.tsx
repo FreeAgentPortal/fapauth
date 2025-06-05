@@ -2,9 +2,11 @@
 
 import { useForm } from 'react-hook-form';
 import styles from './LoginForm.module.scss';
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import useApiHook from '@/hooks/useApi';
 import { useInterfaceStore } from '@/state/interface';
+import { useUserStore } from '@/state/user';
 
 type LoginFormData = {
   email: string;
@@ -18,12 +20,22 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<LoginFormData>();
 
+  const router = useRouter();
+  const token = useUserStore((state) => state.token);
+  const { setToken } = useUserStore.getState();
+
   const { mutate: login } = useApiHook({
     method: 'POST',
     key: 'login',
     successMessage: 'Login successful',
   }) as any;
   const { addAlert } = useInterfaceStore.getState();
+
+  useEffect(() => {
+    if (token) {
+      router.push('/');
+    }
+  }, [token, router]);
 
   const onSubmit = (data: LoginFormData) => {
     login(
@@ -33,6 +45,9 @@ export default function LoginForm() {
       },
       {
         onSuccess: (response: any) => {
+          if (response?.token) {
+            setToken(response.token);
+          }
           console.log('Login successful:', response);
         },
         onError: (error: any) => {
