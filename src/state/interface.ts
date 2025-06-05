@@ -14,11 +14,17 @@ interface InterfaceState {
   alerts: AlertMessage[];
   addAlert: (alert: AlertMessage) => void;
   removeAlert: (id: string) => void;
+  /**
+   * URL to redirect to after successful authentication
+   */
+  redirect: string | null;
+  setRedirect: (url: string | null) => void;
 }
 
 export const useInterfaceStore = create<InterfaceState>(
   (set: any, get: any) => ({
     alerts: [],
+    redirect: null,
     addAlert: (alert: AlertMessage) => {
       const id = uuidv4();
       set((state: InterfaceState) => ({
@@ -29,6 +35,9 @@ export const useInterfaceStore = create<InterfaceState>(
       set((state: InterfaceState) => ({
         alerts: state.alerts.filter((alert) => alert.id !== id),
       }));
+    },
+    setRedirect: (url: string | null) => {
+      set({ redirect: url });
     },
   })
 );
