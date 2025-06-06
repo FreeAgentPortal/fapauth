@@ -64,20 +64,11 @@ export default function VerifyEmailView() {
         return <p>Verifying your email...</p>;
       default:
         return (
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className={`${formStyles.form} ${styles.form}`}
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className={`${formStyles.form}`}>
             <div className={formStyles.field}>
               <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                {...register('email', { required: 'Email is required' })}
-              />
-              {errors.email && (
-                <span className={formStyles.error}>{errors.email.message}</span>
-              )}
+              <input id="email" type="email" {...register('email', { required: 'Email is required' })} />
+              {errors.email && <span className={formStyles.error}>{errors.email.message}</span>}
             </div>
             <button type="submit" className={formStyles.submit}>
               Send Verification Email
@@ -93,4 +84,3 @@ export default function VerifyEmailView() {
     </AuthModal>
   );
 }
-
