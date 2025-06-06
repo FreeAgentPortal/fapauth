@@ -1,5 +1,5 @@
 // app/auth/layout.tsx
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 import styles from './layout.module.scss';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import AuthPage from '@/layout/authPage/AuthPage.layout';
 import { LoaderProvider } from '@/components/progressBar/LoaderProvider.component';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://freeagentportal.com'),
   title: 'Authentication | Free Agent Portal',
   description: 'Access your Free Agent Portal account or register a new one. Built for athletes, teams, and scouts.',
   openGraph: {
@@ -42,13 +43,15 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <div className={styles.authBackground} />
       <div className={styles.authOverlay}>
         <div className={styles.authContainer}>
-          <AuthPage>
-            <Image src={`/images/fap icon.png`} alt="Free Agent Portal Logo" priority width={160} height={160} />
-            <ReactQueryProvider>
-              <main className={styles.authModal}>{children}</main>
-            </ReactQueryProvider>
-            <Footer />
-          </AuthPage>
+          <Suspense fallback={"... Loading authentication setup"}>
+            <AuthPage>
+              <Image src={`/images/fap icon.png`} alt="Free Agent Portal Logo" priority width={160} height={160} />
+              <ReactQueryProvider>
+                <main className={styles.authModal}>{children}</main>
+              </ReactQueryProvider>
+              <Footer />
+            </AuthPage>
+          </Suspense>
         </div>
       </div>
     </div>

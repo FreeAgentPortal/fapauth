@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import ForgotPasswordView from '@/views/forgotPassword/ForgotPassword.view';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://freeagentportal.com'),
   title: 'Forgot Password | Free Agent Portal',
   description: 'Reset your Free Agent Portal password.',
   robots: 'noindex, nofollow',

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import VerifyEmailView from '@/views/verifyEmail/VerifyEmail.view';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://freeagentportal.com'),
   title: 'Verify Email | Free Agent Portal',
   description:
     'Confirm your email address to activate your Free Agent Portal account.',
