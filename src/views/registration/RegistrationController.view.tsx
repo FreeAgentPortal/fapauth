@@ -23,7 +23,6 @@ interface StepProps {
 export default function RegistrationController({ roles }: RegistrationControllerProps) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [formData, setFormData] = useState<any>({});
-  console.log(formData);
   const steps = [
     {
       name: 'user',

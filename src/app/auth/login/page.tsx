@@ -39,7 +39,7 @@ export default function LoginPage() {
       footer={
         <>
           <p>
-            Don't have an account? <a href="/auth/register">Register →</a>
+            Don&apos;t have an account? <a href="/auth/register">Register →</a>
           </p>
           <p>
             <a href="/auth/forgot-password" className={styles.forgotPassword}>
