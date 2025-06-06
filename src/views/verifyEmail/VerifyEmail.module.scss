@@ -12,3 +12,13 @@
     font-size: 0.95rem;
   }
 }
+
+@include mobile {
+  .container {
+    padding: 0.75rem;
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+}
