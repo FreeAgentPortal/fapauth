@@ -48,12 +48,12 @@ const AuthPage = (props: Props) => {
   }, [router, redirect, redirectUrl]);
 
   useEffect(() => {
-    // if (partner) {
-    //   setPartner(partner);
-    // }
+    if (partner) {
+      // setPartner(partner);
+    }
 
-    if (user) {
-      if (!user.isEmailVerified) {
+    if (token) {
+      if (!user?.isEmailVerified) {
         // setCurrentSignUpStep(5);
         router.push('/signup');
         return;
@@ -62,10 +62,10 @@ const AuthPage = (props: Props) => {
       if (redirect) return performRedirect(redirect + `?token=${token}`);
 
       performRedirect(
-        process.env.ENV === 'development' ? `http://localhost:3000/home${user ? `?token=${token}` : ''}` : `https://portal.pyreprocessing.com/home${user ? `?token=${token}` : ''}`
+        process.env.ENV === 'development' ? `http://localhost:3000/home?token=${token}` : `https://portal.pyreprocessing.com/home${user ? `?token=${token}` : ''}`
       );
     }
-  }, [user, redirect, partner]);
+  }, [token, redirect, partner]);
 
   return (
     <div className={styles.wrapper}>
