@@ -1,3 +1,5 @@
+@use '@/styles/globals.scss' as *;
+
 .authModalInner {
   width: 100%;
   display: flex;
@@ -35,5 +37,17 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+@include mobile {
+  .authModalInner {
+    gap: 1rem;
+  }
+  .authTitle {
+    font-size: 1.5rem;
+  }
+  .authSubtitle {
+    font-size: 0.9rem;
   }
 }
