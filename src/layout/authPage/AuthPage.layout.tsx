@@ -53,11 +53,11 @@ const AuthPage = (props: Props) => {
     }
 
     if (token) {
-      if (!user?.isEmailVerified) {
-        // setCurrentSignUpStep(5);
-        router.push('/signup');
-        return;
-      }
+      // if (!user?.isEmailVerified) {
+      //   // setCurrentSignUpStep(5);
+      //   router.push('/signup');
+      //   return;
+      // }
 
       if (redirect) return performRedirect(redirect + `?token=${token}`);
 
