@@ -39,11 +39,12 @@ export const metadata: Metadata = {
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <div className={styles.authLayout}>
+      <video src="/images/stadium-lights.mp4" id="video" muted loop autoPlay className={styles.authBackground} />
       <AlertCenter />
-      <div className={styles.authBackground} />
+      {/* <div className={styles.authBackground} /> */}
       <div className={styles.authOverlay}>
         <div className={styles.authContainer}>
-          <Suspense fallback={"... Loading authentication setup"}>
+          <Suspense fallback={'... Loading authentication setup'}>
             <AuthPage>
               <Image src={`/images/fap icon.png`} alt="Free Agent Portal Logo" priority width={160} height={160} />
               <ReactQueryProvider>
