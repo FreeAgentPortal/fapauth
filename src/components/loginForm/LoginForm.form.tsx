@@ -1,25 +1,25 @@
+// LoginForm.form.tsx
 'use client';
 
 import { useForm } from 'react-hook-form';
 import styles from './LoginForm.module.scss';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import useApiHook from '@/hooks/useApi';
-import { useInterfaceStore } from '@/state/interface';
-import { useUserStore } from '@/state/user';
 
 type LoginFormData = {
   email: string;
   password: string;
 };
 
-export default function LoginForm() {
+type Props = {
+  onSuccess?: (token: string, response: any) => void;
+};
+
+export default function LoginForm({ onSuccess }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
-  const { setToken } = useUserStore.getState();
 
   const { mutate: login } = useApiHook({
     method: 'POST',
@@ -35,14 +35,12 @@ export default function LoginForm() {
       },
       {
         onSuccess: (response: any) => {
-          if (response?.token) {
-            setToken(response.token);
+          if (response?.token && onSuccess) {
+            onSuccess(response.token, response);
           }
-          console.log('Login successful:', response);
         },
         onError: (error: any) => {
           console.error('Login failed:', error);
-          // Handle login error, e.g., show an error message
         },
       }
     );
@@ -52,18 +50,16 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.formGroup}>
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" placeholder="you@example.com" {...register('email', { required: 'Email is required' })} />
+        <input type="email" id="email" {...register('email', { required: 'Email is required' })} />
         {errors.email && <span className={styles.error}>{errors.email.message}</span>}
       </div>
-
       <div className={styles.formGroup}>
         <label htmlFor="password">Password</label>
         <div className={styles.passwordInput}>
-          <input type={'password'} id="password" placeholder="••••••••" {...register('password', { required: 'Password is required' })} />
+          <input type="password" id="password" {...register('password', { required: 'Password is required' })} />
         </div>
         {errors.password && <span className={styles.error}>{errors.password.message}</span>}
       </div>
-
       <button type="submit" className={styles.submitButton}>
         Log In
       </button>

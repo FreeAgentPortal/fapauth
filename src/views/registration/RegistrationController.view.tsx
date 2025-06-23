@@ -8,18 +8,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Athlete from './steps/Athlete.form';
 import FinalStep from './steps/FinalStep.step';
 import Verification from './steps/Verification.step';
+import { StepProps } from '@/types/StepProps';
 
 interface RegistrationControllerProps {
   roles: string[];
 }
-interface StepProps {
-  name: string;
-  component: React.ReactNode;
-  onNext: (stepName: string, data: any) => void;
-  onBack?: () => void;
-  defaultValues?: any;
-}
-
 export default function RegistrationController({ roles }: RegistrationControllerProps) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [formData, setFormData] = useState<any>({});
@@ -31,7 +24,7 @@ export default function RegistrationController({ roles }: RegistrationController
     ...(roles.includes('athlete')
       ? [{ name: 'athlete', component: <Athlete onNext={handleNext} onBack={handleBack} defaultValues={formData.athlete} userDefaults={formData.user} /> }]
       : []),
-    ...(roles.includes('team') ? [{ name: 'team', component: <Team onNext={handleNext} onBack={handleBack} defaultValues={formData.team} /> }] : []),
+    // ...(roles.includes('team') ? [{ name: 'team', component: <Team onNext={handleNext} onBack={handleBack} defaultValues={formData.team} /> }] : []),
     {
       name: 'submit',
       component: (

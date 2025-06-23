@@ -1,8 +1,9 @@
 // app/auth/login/page.tsx
 import AuthModal from '@/layout/authModal/AuthModal.layout';
 import { Metadata } from 'next';
-import LoginForm from './forms/loginForm/LoginForm.form';
-import styles from './forms/loginForm/LoginForm.module.scss'
+import LoginForm from '../../../components/loginForm/LoginForm.form';
+import styles from './forms/loginForm/LoginForm.module.scss';
+import LoginWrapper from '@/views/login/LoginWrapper.component';
 
 export const metadata: Metadata = {
   title: 'Login | Free Agent Portal',
@@ -49,7 +50,7 @@ export default function LoginPage() {
         </>
       }
     >
-      <LoginForm />
+      <LoginWrapper />
     </AuthModal>
   );
 }
