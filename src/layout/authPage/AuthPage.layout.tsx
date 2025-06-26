@@ -8,6 +8,7 @@ import Modal from '@/components/modal/Modal.component';
 import Loader from '@/components/loader/Loader.component';
 import { LoaderProvider } from '@/components/progressBar/LoaderProvider.component';
 import { useLoader } from '@/components/progressBar/useLoader';
+import setAuthToken from '@/utils/setAuthToken';
 type Props = {
   children: React.ReactNode;
 };
@@ -50,6 +51,9 @@ const AuthPage = (props: Props) => {
   useEffect(() => {
     if (partner) {
       // setPartner(partner);
+    }
+    if(user){
+      setAuthToken(user.token as any)
     }
 
     if (token) {

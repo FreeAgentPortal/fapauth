@@ -14,7 +14,10 @@ const Authenticate = ({ handleNext, handleBack }: AuthenticateProps) => {
     if (handleNext) {
       handleNext('Authenticate', { token, response });
     }
-    setUser(response.token);
+    setUser({
+      ...response.user,
+      token: response.token,
+    });
   };
 
   return (

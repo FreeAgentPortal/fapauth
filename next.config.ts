@@ -1,32 +1,37 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
   env: {
     API_URL: process.env.API_URL || 'https://api.freeagentportal.com/api/v1',
-    ENV: process.env.NODE_ENV, 
+    ENV: process.env.NODE_ENV,
     ENCRYPTION_KEY: 'asdf234as2342asdf2i;lk342342;$23423',
   },
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "**",
-        port: "",
-        pathname: "**",
+        protocol: 'https',
+        hostname: '**',
+        port: '',
+        pathname: '**',
       },
     ],
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb', // Set the body size limit for server actions
+    },
   },
   // redirect to the /auth route if the user hits the / route
   async redirects() {
     return [
       {
-        source: "/",
-        destination: "/auth",
+        source: '/',
+        destination: '/auth',
         permanent: false,
       },
     ];
-  } 
+  },
 };
 
 export default nextConfig;

@@ -1,4 +1,5 @@
 export default interface UserType {
+  token: any;
   _id: string;
   firstName: string;
   lastName: string;

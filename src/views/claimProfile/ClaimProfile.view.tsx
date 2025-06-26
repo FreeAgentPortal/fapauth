@@ -3,14 +3,17 @@ import React, { useState } from 'react';
 import { StepProps } from '@/types/StepProps';
 import { AnimatePresence, motion } from 'framer-motion';
 import Authenticate from './Steps/authenticate/Authenticate.step';
+import Profile from './Steps/profile/Profile.component';
+import UploadDocuments from './Steps/uploadDocuments/UploadDocuments.component';
+import ClaimSubmitted from './Steps/claimSubmitted/ClaimSubmitted.component';
 
 const ClaimProfile = () => {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [currentStepIndex, setCurrentStepIndex] = useState(3);
   const steps = [
     {
       name: 'Authenticate',
       component: (
-        <Authenticate 
+        <Authenticate
           handleNext={(data: any) => {
             handleNext('Authenticate', data);
           }}
@@ -19,13 +22,15 @@ const ClaimProfile = () => {
     },
     {
       name: 'ClaimProfile',
-      component: (
-        <div>
-          <h2>Claim Profile</h2>
-          <p>Your profile has been successfully claimed!</p>
-          <button onClick={handleBack}>Back</button>
-        </div>
-      ),
+      component: <Profile handleNext={(data: any) => handleNext('ClaimProfile', data)} handleBack={() => setCurrentStepIndex((i) => Math.max(i - 1, 0))} />,
+    },
+    {
+      name: 'UploadDocuments',
+      component: <UploadDocuments handleNext={() => handleNext('UploadDocuments', {})} handleBack={handleBack} />,
+    },
+    {
+      name: 'ClaimSubmitted',
+      component: <ClaimSubmitted />,
     },
   ] as StepProps[];
   const stepKey = steps[currentStepIndex].name;

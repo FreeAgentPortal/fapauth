@@ -1,0 +1,19 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--spacing-md); 
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-default);
+  text-align: center;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.message {
+  font-size: var(--font-size-md);
+  color: var(--secondary-dark);
+}
