@@ -8,25 +8,25 @@ import UploadDocuments from './Steps/uploadDocuments/UploadDocuments.component';
 import ClaimSubmitted from './Steps/claimSubmitted/ClaimSubmitted.component';
 
 const ClaimProfile = () => {
-  const [currentStepIndex, setCurrentStepIndex] = useState(3);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const steps = [
     {
       name: 'Authenticate',
       component: (
         <Authenticate
           handleNext={(data: any) => {
-            handleNext('Authenticate', data);
+            handleNext(data.stepName, data);
           }}
         />
       ),
     },
     {
       name: 'ClaimProfile',
-      component: <Profile handleNext={(data: any) => handleNext('ClaimProfile', data)} handleBack={() => setCurrentStepIndex((i) => Math.max(i - 1, 0))} />,
+      component: <Profile handleNext={(data: any) => handleNext(data.stepName, data)} handleBack={() => setCurrentStepIndex((i) => Math.max(i - 1, 0))} />,
     },
     {
       name: 'UploadDocuments',
-      component: <UploadDocuments handleNext={() => handleNext('UploadDocuments', {})} handleBack={handleBack} />,
+      component: <UploadDocuments handleNext={(data: any) => handleNext(data.stepName, data)} handleBack={handleBack} />,
     },
     {
       name: 'ClaimSubmitted',
@@ -35,6 +35,12 @@ const ClaimProfile = () => {
   ] as StepProps[];
   const stepKey = steps[currentStepIndex].name;
   function handleNext(stepName: string, data: any) {
+    // check for the step name if its provided attempt to navigate to that step
+    const stepIndex = steps.findIndex((step) => step.name === stepName);
+    if (stepIndex !== -1) {
+      setCurrentStepIndex(stepIndex);
+      return;
+    }
     setCurrentStepIndex((i) => Math.min(i + 1, steps.length - 1));
   }
 

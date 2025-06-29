@@ -1,8 +1,7 @@
 // app/auth/login/page.tsx
 import AuthModal from '@/layout/authModal/AuthModal.layout';
-import { Metadata } from 'next';
-import LoginForm from '../../../components/loginForm/LoginForm.form';
-import styles from './forms/loginForm/LoginForm.module.scss';
+import { Metadata } from 'next'; 
+import styles from './page.module.scss';
 import LoginWrapper from '@/views/login/LoginWrapper.component';
 
 export const metadata: Metadata = {
