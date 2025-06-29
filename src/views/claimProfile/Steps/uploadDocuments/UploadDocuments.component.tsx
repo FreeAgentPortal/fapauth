@@ -47,7 +47,7 @@ const UploadDocuments = ({ handleNext, handleBack }: { handleNext: (data: any) =
       'Content-Type': 'application/json',
       Authorization: `Bearer ${user?.token}`,
     },
-    queriesToInvalidate: ['profile', profile as string],
+    queriesToInvalidate: ['profile', slug as string],
   }) as any;
 
   const updateDocument = (index: number, newData: Partial<DocumentUpload>) => {
