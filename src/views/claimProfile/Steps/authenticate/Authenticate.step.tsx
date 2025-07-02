@@ -12,7 +12,7 @@ const Authenticate = ({ handleNext, handleBack }: AuthenticateProps) => {
   const { setUser, user } = useUserStore();
   const handleAuthentication = (token: string, response: any) => {
     if (handleNext) {
-      handleNext('Authenticate', { token, response });
+      handleNext('ClaimProfile', { token, response });
     }
     setUser({
       ...response.user,

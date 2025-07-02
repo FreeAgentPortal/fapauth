@@ -6,6 +6,7 @@ import useApiHook from '@/hooks/useApi';
 import Loader from '@/components/loader/Loader.component';
 import Image from 'next/image';
 import { url } from 'inspector';
+import { useUserStore } from '@/state/user';
 
 interface ProfileProps {
   handleNext: (data: any) => void;
@@ -13,6 +14,7 @@ interface ProfileProps {
 }
 
 const Profile = ({ handleNext, handleBack }: ProfileProps) => {
+  const { user } = useUserStore((state) => state);
   // get the slug and type param from the url
   const searchParams = useSearchParams();
   const slug = searchParams.get('slug');
@@ -28,9 +30,24 @@ const Profile = ({ handleNext, handleBack }: ProfileProps) => {
   const { mutate: createClaimProcess } = useApiHook({
     method: 'POST',
     key: ['profile', slug as string],
-    enabled: false,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user?.token}`,
+    },
+    queriesToInvalidate: ['profile', slug as string],
   }) as any;
 
+  React.useEffect(() => {
+    // if we have claim data we want to check if the claim process has been submitted/approved/denied
+    // if the claim process has been submitted we can move to the next step immediately
+    if (data?.success) {
+      const status = data?.payload?.status ?? 'not-started';
+      // only if the status is not 'not-started' we can move to the next step
+      if (status !== 'not-started') {
+        handleNext({ stepName: 'claimSubmitted', data });
+      }
+    }
+  }, [data, handleNext]);
   if (isLoading) return <Loader />;
   return (
     <div className={styles.container}>
@@ -64,10 +81,24 @@ const Profile = ({ handleNext, handleBack }: ProfileProps) => {
               // handle the claim process start
               // this could be a redirect to another page or an API call
               // for now, we will just log the slug and type
-              createClaimProcess({
-                url: `/auth/claim/profile?slug=${slug}&type=${type}`,
-                formData: {},
-              });
+              createClaimProcess(
+                {
+                  url: `/auth/claim`,
+                  formData: {
+                    claimType: type,
+                    profile: slug,
+                  },
+                },
+                {
+                  onSuccess: (response: any) => {
+                    console.log('Claim process started successfully:', response);
+                    handleNext({ stepName: 'uploadDocuments', data: response });
+                  },
+                  onError: (error: any) => {
+                    console.error('Error starting claim process:', error);
+                  },
+                }
+              );
             }}
           >
             Start Claim Process

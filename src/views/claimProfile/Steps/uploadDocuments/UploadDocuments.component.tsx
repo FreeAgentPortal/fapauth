@@ -14,11 +14,17 @@ type DocumentUpload = {
   file: File | null;
 };
 
-const UploadDocuments = ({ handleNext, handleBack }: { handleNext: () => void; handleBack: () => void }) => {
+const UploadDocuments = ({ handleNext, handleBack }: { handleNext: (data: any) => void; handleBack: () => void }) => {
   const searchParams = useSearchParams();
-  const profile = searchParams.get('slug');
-  const queryClient = useQueryClient();
-  const claim = queryClient.getQueryData(['profile', profile as string]) as { payload: { _id: string } } | undefined;
+  const slug = searchParams.get('slug');
+  const type = searchParams.get('type');
+  const { data: claim, isLoading } = useApiHook({
+    url: `/auth/claim/profile?slug=${slug}&type=${type}`,
+    method: 'GET',
+    key: ['profile', slug as string],
+    enabled: !!slug && !!type,
+  }) as any;
+
   const { user } = useUserStore((state) => state);
   const [documents, setDocuments] = useState<DocumentUpload[]>([
     { type: '', file: null },
@@ -41,7 +47,7 @@ const UploadDocuments = ({ handleNext, handleBack }: { handleNext: () => void; h
       'Content-Type': 'application/json',
       Authorization: `Bearer ${user?.token}`,
     },
-    queriesToInvalidate: ['profile', profile as string],
+    queriesToInvalidate: ['profile', slug as string],
   }) as any;
 
   const updateDocument = (index: number, newData: Partial<DocumentUpload>) => {
@@ -78,12 +84,12 @@ const UploadDocuments = ({ handleNext, handleBack }: { handleNext: () => void; h
             await updateClaim(
               {
                 url: `/auth/claim/${claim?.payload?._id as any}`,
-                formData: { documents: documentUrls, status: 'pending'},
+                formData: { documents: documentUrls, status: 'pending' },
               },
               {
-                onSuccess: () => {
+                onSuccess: (response: any) => {
                   console.log('Claim updated successfully with document URLs');
-                  handleNext();
+                  handleNext({ stepName: 'claimSubmitted', data: response });
                 },
                 onError: (error: any) => {
                   console.error('Error updating claim:', error);
