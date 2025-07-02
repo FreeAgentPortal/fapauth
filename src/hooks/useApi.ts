@@ -1,69 +1,86 @@
-"use client";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "@/utils/axios";
-import { useRouter } from "next/navigation";
-import decryptData from "@/utils/decryptData";
-import { useSearchStore as store } from "@/state/search";
-import { useInterfaceStore } from "@/state/interface";
-import { v4 as uuidv4 } from "uuid";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import axios from '@/utils/axios';
+import { useRouter } from 'next/navigation';
+import { useSearchStore as store } from '@/state/search';
+import { useInterfaceStore } from '@/state/interface';
+import { CryptoService } from '@/utils/CryptoService';
 
-const fetchData = async (url: string, method: "GET" | "POST" | "PUT" | "DELETE", data?: any, options?: any) => {
+function cleanParams(params: Record<string, any>): Record<string, any> {
+  const cleaned: Record<string, any> = {};
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      cleaned[key] = value;
+    }
+  });
+  return cleaned;
+}
+
+const fetchData = async (url: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE', data?: any, options?: any) => {
+  const secret = process.env.ENCRYPTION_KEY!;
+  const cryptoService = new CryptoService(secret);
   let response;
   switch (method) {
-    case "GET":
+    case 'GET':
       const {
         defaultKeyword = options?.defaultKeyword || store.getState().search,
         defaultPageNumber = options?.defaultPageNumber || store.getState().pageNumber,
         defaultPageLimit = options?.defaultPageLimit || store.getState().pageLimit,
-        defaultFilter = `${options?.defaultFilter ?? ""}${
-          store.getState().filter ? `|${store.getState().filter}` : ""
-        }`,
+        defaultFilter = `${options?.defaultFilter ?? ''}${store.getState().filter ? `|${store.getState().filter}` : ''}`,
         defaultSort = options?.defaultSort || store.getState().sort,
         defaultInclude = options?.defaultInclude || store.getState().include,
-        defaultParams = options?.defaultParams || store.getState().params,
       } = options || {};
 
       response = await axios.get(url, {
         params: {
-          keyword: defaultKeyword,
-          pageNumber: defaultPageNumber,
-          limit: defaultPageLimit,
-          filterOptions: defaultFilter,
-          sortOptions: defaultSort,
-          includeOptions: defaultInclude,
-          ...defaultParams,
+          ...cleanParams({
+            keyword: defaultKeyword,
+            pageNumber: defaultPageNumber,
+            pageLimit: defaultPageLimit,
+            filterOptions: defaultFilter,
+            sortOptions: defaultSort,
+            includeOptions: defaultInclude,
+          }),
+        },
+        headers: {
+          ...options?.headers,
         },
       });
 
       break;
-    case "POST":
-      response = await axios.post(url, data);
+    case 'POST':
+      response = await axios.post(url, data, {
+        headers: {
+          ...options?.headers,
+        },
+      });
       break;
-    case "PUT":
-      response = await axios.put(url, data);
+    case 'PUT':
+      response = await axios.put(url, data, {
+        headers: {
+          ...options?.headers,
+        },
+      });
       break;
-    case "DELETE":
+    case 'DELETE':
       response = await axios.delete(url, { data });
       break;
     default:
       throw new Error(`Unsupported method: ${method}`);
   }
-  if (method === "GET" && typeof response.data.payload === "string") {
-    response.data.payload = JSON.parse(decryptData(response.data.payload));
+  if (method === 'GET' && typeof response.data.payload === 'string') {
+    response.data.payload = JSON.parse(cryptoService.decrypt(response.data.payload));
   }
   return response.data;
 };
 // Reusable Hook
 const useApiHook = (options: {
-  method: "GET" | "POST" | "PUT" | "DELETE";
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   url?: string;
-  key: string | Array<string | number>;
+  key: string | string[];
   filter?: any;
-  params?: any;
   keyword?: string;
   sort?: any;
   include?: any;
-  limit?: number;
   queriesToInvalidate?: string[];
   successMessage?: string;
   redirectUrl?: string;
@@ -71,7 +88,7 @@ const useApiHook = (options: {
   refetchOnWindowFocus?: boolean;
   staleTime?: number;
   cacheTime?: number;
-  pageNumber?: number;
+  headers?: Record<string, string>;
   onSuccessCallback?: (data: any) => void;
   onErrorCallback?: (error: any) => void;
 }) => {
@@ -84,16 +101,14 @@ const useApiHook = (options: {
     url,
     key,
     filter,
-    params,
-    limit,
     sort,
     include,
     queriesToInvalidate,
     successMessage,
     redirectUrl,
     keyword,
-    pageNumber,
     enabled = true,
+    headers,
     refetchOnWindowFocus = false,
     staleTime = 1000 * 60 * 5, // 5 minutes
     cacheTime = 1000 * 60 * 10, // 10 minutes
@@ -101,39 +116,40 @@ const useApiHook = (options: {
     onErrorCallback,
   } = options;
 
-  const queryKey = typeof key === "string" ? [key] : key;
+  const queryKey = typeof key === 'string' ? [key] : key;
+
   const query = useQuery({
     queryKey,
     queryFn: () =>
-      fetchData(url!, "GET", undefined, {
+      fetchData(url!, 'GET', undefined, {
         defaultKeyword: keyword,
         defaultFilter: filter,
         defaultSort: sort,
         defaultInclude: include,
-        defaultPageLimit: limit,
-        defaultPageNumber: pageNumber,
-        defaultParams: params,
+        headers: headers,
       }),
-    enabled: enabled && method === "GET",
+    enabled: enabled && method === 'GET',
     refetchOnWindowFocus,
     retry: 1,
     staleTime: staleTime,
     gcTime: cacheTime,
     meta: {
-      errorMessage: "An error occurred while fetching data",
+      errorMessage: 'An error occurred while fetching data',
     },
   });
 
   const mutation = useMutation({
     mutationFn: (data: { url?: string; formData?: any }) =>
-      fetchData(url ? url : (data.url as any), method, data.formData),
+      fetchData(url ? url : (data.url as any), method, data.formData, {
+        headers,
+      }),
     onSuccess: (data: any) => {
       if (successMessage) {
-        addAlert({ id: uuidv4(), message: successMessage, type: "success", duration: 5000 });
+        addAlert({ message: successMessage, type: 'success', duration: 3000 });
       }
 
       queriesToInvalidate?.forEach((query: string) => {
-        queryClient.invalidateQueries([query] as any);
+        queryClient.invalidateQueries([query.split(',')] as any);
       });
 
       if (redirectUrl) {
@@ -145,9 +161,9 @@ const useApiHook = (options: {
       }
     },
     onError: (error: any) => {
-      console.log(error);
-      const message = error.response?.data?.message || error.message || "An error occurred";
-      addAlert({ id: uuidv4(), message, type: "error", duration: 5000 });
+      const messageTxt = error.response && error.response.data.message ? error.response.data.message : error.message;
+
+      addAlert({ message: messageTxt, type: 'error', duration: 10000 });
       if (onErrorCallback) {
         onErrorCallback(error);
       }
@@ -155,7 +171,7 @@ const useApiHook = (options: {
   });
 
   // Return based on method
-  return method === "GET" ? query : mutation;
+  return method === 'GET' ? query : mutation;
 };
 
 export default useApiHook;

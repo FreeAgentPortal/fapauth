@@ -14,24 +14,38 @@ interface InterfaceState {
   alerts: AlertMessage[];
   addAlert: (alert: AlertMessage) => void;
   removeAlert: (id: string) => void;
+
+  /**
+   * Redirection stuff
+   */
+  redirect: string | null;
+  redirectName: string | undefined;
+  setRedirect: (url: string | null) => void;
+  setRedirectName: (path: string | undefined) => void;
 }
 
-export const useInterfaceStore = create<InterfaceState>(
-  (set: any, get: any) => ({
-    alerts: [],
-    addAlert: (alert: AlertMessage) => {
-      const id = uuidv4();
-      set((state: InterfaceState) => ({
-        alerts: [...state.alerts, { ...alert, id }],
-      }));
-    },
-    removeAlert: (id: string) => {
-      set((state: InterfaceState) => ({
-        alerts: state.alerts.filter((alert) => alert.id !== id),
-      }));
-    },
-  })
-);
+export const useInterfaceStore = create<InterfaceState>((set: any, get: any) => ({
+  alerts: [],
+  redirect: null,
+  redirectName: undefined,
+  setRedirectName: (name: any) => {
+    set({ redirectName: name });
+  },
+  addAlert: (alert: AlertMessage) => {
+    const id = uuidv4();
+    set((state: InterfaceState) => ({
+      alerts: [...state.alerts, { ...alert, id }],
+    }));
+  },
+  removeAlert: (id: string) => {
+    set((state: InterfaceState) => ({
+      alerts: state.alerts.filter((alert) => alert.id !== id),
+    }));
+  },
+  setRedirect: (url: string | null) => {
+    set({ redirect: url });
+  },
+}));
 
 if (process.env.NODE_ENV === 'development') {
   mountStoreDevtool('Store', useInterfaceStore);

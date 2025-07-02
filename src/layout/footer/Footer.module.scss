@@ -1,0 +1,36 @@
+@use '@/styles/globals.scss' as *;
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  color: #ccc;
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+}
+
+@include mobile {
+  .links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.links a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.trademark {
+  font-size: 0.75rem;
+}

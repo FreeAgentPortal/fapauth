@@ -1,0 +1,72 @@
+.container {
+  padding: var(--spacing-md); 
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-default);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.instructions {
+  font-size: var(--font-size-sm);
+  color: var(--secondary-dark);
+  margin-bottom: var(--spacing-md);
+}
+
+.documentGroup {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-sm);
+  border: 1px solid var(--secondary);
+  border-radius: var(--radius-sm); 
+}
+
+.label {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-xs);
+}
+
+.select,
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--secondary-dark);
+  margin-bottom: var(--spacing-sm);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.button {
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-bold);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.secondary {
+  background-color: var(--secondary);
+  color: black;
+}

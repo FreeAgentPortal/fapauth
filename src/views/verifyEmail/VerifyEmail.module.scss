@@ -1,0 +1,24 @@
+@use '@/styles/globals.scss' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  text-align: center;
+
+  p {
+    font-size: 0.95rem;
+  }
+}
+
+@include mobile {
+  .container {
+    padding: 0.75rem;
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+}
