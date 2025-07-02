@@ -2,7 +2,6 @@
 import AuthModal from '@/layout/authModal/AuthModal.layout';
 import { Metadata } from 'next';
 import LoginForm from '../../../components/loginForm/LoginForm.form';
-import styles from './forms/loginForm/LoginForm.module.scss';
 import LoginWrapper from '@/views/login/LoginWrapper.component';
 
 export const metadata: Metadata = {
@@ -43,9 +42,7 @@ export default function LoginPage() {
             Don&apos;t have an account? <a href="/auth/register">Register →</a>
           </p>
           <p>
-            <a href="/auth/forgot-password" className={styles.forgotPassword}>
-              Forgot password?
-            </a>
+            <a href="/auth/forgot-password">Forgot password?</a>
           </p>
         </>
       }

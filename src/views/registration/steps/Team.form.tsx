@@ -49,18 +49,18 @@ const Team = ({ onNext, onBack, defaultValues, userDefaults }: TeamFormProps) =>
     return () => clearTimeout(timeout);
   }, [organizationName]);
 
-  const { data: teamExists, isLoading } = useApiHook({
-    url: `/team/check`,
-    method: 'GET',
-    key: ['teamExists', orgName],
-    params: {
-      resource: {
-        organizationName: orgName,
-        teamEmail: getValues('teamEmail'),
-      },
-    },
-    enabled: !!orgName,
-  }) as any;
+  // const { data: teamExists, isLoading } = useApiHook({
+  //   url: `/team/check`,
+  //   method: 'GET',
+  //   key: ['teamExists', orgName],
+  //   params: {
+  //     resource: {
+  //       organizationName: orgName,
+  //       teamEmail: getValues('teamEmail'),
+  //     },
+  //   },
+  //   enabled: !!orgName,
+  // }) as any;
 
   useEffect(() => {
     if (defaultValues) reset(defaultValues);
@@ -88,7 +88,7 @@ const Team = ({ onNext, onBack, defaultValues, userDefaults }: TeamFormProps) =>
           })}
         />
         {errors.organizationName && <span className={formStyles.error}>{errors.organizationName.message}</span>}
-        {teamExists && <span className={styles.warning}>⚠ This organization already exists. You can continue, but access will require approval from the organization owner.</span>}
+        {/* {teamExists && <span className={styles.warning}>⚠ This organization already exists. You can continue, but access will require approval from the organization owner.</span>} */}
       </div>
 
       <div className={formStyles.field}>

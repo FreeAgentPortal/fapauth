@@ -28,6 +28,10 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+        env:
+          NODE_ENV: production
+          API_URL: https://api.freeagentportal.com/api/v1
+          ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
