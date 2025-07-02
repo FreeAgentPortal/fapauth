@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 export default async function Page({ searchParams }: { searchParams: Promise<{ profile?: string }> }) {
   return (
     <AuthModal
-      title="Claim Your Profile"
+      title="Claim Your Profile!"
       subtitle="Connect with athletes, teams, and scouts"
       footer={
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>

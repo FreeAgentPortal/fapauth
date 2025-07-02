@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <div className={styles.authLayout}>
-      <video src="/images/stadium-lights.mp4" id="video" muted loop autoPlay className={styles.authBackground} />
+      <video src="https://res.cloudinary.com/dsltlng97/video/upload/v1751466457/stadium-lights_vi9bhe.mp4" id="video" muted loop autoPlay className={styles.authBackground} />
       <AlertCenter />
       {/* <div className={styles.authBackground} /> */}
       <div className={styles.authOverlay}>
