@@ -31,11 +31,12 @@ jobs:
           npm run build --if-present
         env:
           NODE_ENV: production
-          API_URL: https://api.freeagentportal.com/api/v1
+          API_URL: https://api.thefreeagentportal.com/api/v1
           ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       - name: Run tests
         run: |
           npm run test --if-present
+          
       - name: Zip artifact for deployment
         run: zip release.zip ./* .next -qr
 
