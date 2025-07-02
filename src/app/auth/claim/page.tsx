@@ -3,8 +3,6 @@ import AuthModal from '@/layout/authModal/AuthModal.layout';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import ClaimProfile from '@/views/claimProfile/ClaimProfile.view';
-import axios from '@/utils/axios';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 export const metadata: Metadata = {
   title: 'Claim Your Profile | Free Agent Portal',

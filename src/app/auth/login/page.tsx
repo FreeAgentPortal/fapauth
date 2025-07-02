@@ -42,9 +42,7 @@ export default function LoginPage() {
             Don&apos;t have an account? <a href="/auth/register">Register →</a>
           </p>
           <p>
-            <a href="/auth/forgot-password" className={styles.forgotPassword}>
-              Forgot password?
-            </a>
+            <a href="/auth/forgot-password">Forgot password?</a>
           </p>
         </>
       }
