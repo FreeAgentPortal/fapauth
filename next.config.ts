@@ -1,11 +1,12 @@
 import type { NextConfig } from 'next';
+import path from 'path';
 
 const nextConfig: NextConfig = {
   /* config options here */
   env: {
     API_URL: process.env.API_URL || 'https://api.freeagentportal.com/api/v1',
     ENV: process.env.NODE_ENV,
-    ENCRYPTION_KEY: 'asdf234as2342asdf2i;lk342342;$23423',
+    ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
   },
   images: {
     remotePatterns: [
@@ -31,6 +32,10 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
     ];
+  },
+  webpack(config) {
+    config.resolve.alias['@'] = path.resolve(__dirname, 'src');
+    return config;
   },
 };
 
