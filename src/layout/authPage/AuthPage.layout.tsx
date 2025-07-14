@@ -7,8 +7,9 @@ import { useInterfaceStore } from '@/state/interface';
 import Modal from '@/components/modal/Modal.component';
 import Loader from '@/components/loader/Loader.component';
 import { LoaderProvider } from '@/components/progressBar/LoaderProvider.component';
-import { useLoader } from '@/components/progressBar/useLoader';
+
 import setAuthToken from '@/utils/setAuthToken';
+import NextTopLoader from 'nextjs-toploader';
 type Props = {
   children: React.ReactNode;
 };
@@ -52,8 +53,8 @@ const AuthPage = (props: Props) => {
     if (partner) {
       // setPartner(partner);
     }
-    if(user){
-      setAuthToken(user.token as any)
+    if (user) {
+      setAuthToken(user.token as any);
     }
 
     if (token) {
@@ -65,9 +66,7 @@ const AuthPage = (props: Props) => {
 
       if (redirect) return performRedirect(redirect + `?token=${token}`);
 
-      performRedirect(
-        process.env.ENV === 'development' ? `http://localhost:3000/home?token=${token}` : `https://portal.pyreprocessing.com/home${user ? `?token=${token}` : ''}`
-      );
+      performRedirect(process.env.ENV === 'development' ? `http://localhost:3000/home?token=${token}` : `https://portal.pyreprocessing.com/home${user ? `?token=${token}` : ''}`);
     }
   }, [token, redirect, partner]);
 
@@ -84,6 +83,18 @@ const AuthPage = (props: Props) => {
       </Modal>
 
       <div className={styles.container}>
+        <NextTopLoader
+          color="var(--primary)"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px var(--primary-dark),0 0 5px var(--primary)"
+          showForHashAnchor
+        />
         <div className={styles.auth}>
           {redirectName && <div className={styles.banner}>{redirectName}</div>}
           <LoaderProvider>{props.children}</LoaderProvider>

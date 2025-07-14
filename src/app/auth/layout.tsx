@@ -7,8 +7,7 @@ import ReactQueryProvider from '@/providers/ReactQueryProvider';
 import AlertCenter from '@/layout/alertCenter/AlertCenter.layout';
 import Footer from '@/layout/footer/Footer.layout';
 import AuthPage from '@/layout/authPage/AuthPage.layout';
-import { LoaderProvider } from '@/components/progressBar/LoaderProvider.component';
-
+import Loader from '@/components/loader/Loader.component';
 export const metadata: Metadata = {
   metadataBase: new URL('https://freeagentportal.com'),
   title: 'Authentication | Free Agent Portal',
@@ -44,7 +43,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       {/* <div className={styles.authBackground} /> */}
       <div className={styles.authOverlay}>
         <div className={styles.authContainer}>
-          <Suspense fallback={'... Loading authentication setup'}>
+          <Suspense fallback={<Loader />}>
             <AuthPage>
               <Image src={`/images/fap icon.png`} alt="Free Agent Portal Logo" priority width={160} height={160} />
               <ReactQueryProvider>
