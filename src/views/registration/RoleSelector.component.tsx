@@ -3,20 +3,23 @@ import React, { useState } from 'react';
 import styles from './Registration.module.scss';
 import { useRouter } from 'next/navigation';
 
-const rolesList = ['athlete', 'team'];
+const rolesList = ['athlete'];
 const RoleSelector = () => {
-  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+  const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const router = useRouter();
 
   const toggleRole = (role: string) => {
-    setSelectedRoles((prev) =>
-      prev.includes(role) ? prev.filter((r) => r !== role) : [...prev, role]
-    );
+    setSelectedRole((prev) => (prev === role ? null : role));
   };
 
   const handleContinue = () => {
-    const query = selectedRoles.join(',');
-    router.push(`/auth/register/flow?role=${query}`);
+    if (selectedRole) {
+      router.push(`/auth/register/flow?role=${selectedRole}`);
+    }
+  };
+
+  const handleSkip = () => {
+    router.push('/auth/register/flow');
   };
 
   return (
@@ -30,7 +33,7 @@ const RoleSelector = () => {
           <button
             key={role}
             className={`${styles.roleBtn} ${
-              selectedRoles.includes(role) ? styles.active : ''
+              selectedRole === role ? styles.active : ''
             }`}
             onClick={() => toggleRole(role)}
           >
@@ -42,9 +45,12 @@ const RoleSelector = () => {
       <button
         className={styles.continueBtn}
         onClick={handleContinue}
-        disabled={selectedRoles.length === 0}
+        disabled={!selectedRole}
       >
         Continue →
+      </button>
+      <button className={styles.skipBtn} onClick={handleSkip}>
+        Continue Without a Profile
       </button>
     </div>
   );
