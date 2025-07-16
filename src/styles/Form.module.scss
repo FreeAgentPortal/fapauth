@@ -65,6 +65,16 @@
   color: #ff6b6b;
 }
 
+.btnContainer {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
 .submit,
 .back {
   margin-top: 1rem;
@@ -75,6 +85,11 @@
   border-radius: 0.5rem;
   border: none;
   cursor: pointer;
+
+  .btnContainer & {
+    margin-top: 0;
+    flex: 1;
+  }
 }
 
 .submit {
@@ -83,6 +98,15 @@
 
   &:hover {
     background: rgba(255, 255, 255, 0.35);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
   }
 }
 
