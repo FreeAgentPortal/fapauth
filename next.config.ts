@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     API_URL: process.env.API_URL || 'https://api.freeagentportal.com/api/v1',
     ENV: process.env.NODE_ENV,
     ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
+    NEXT_PUBLIC_APP_URL: process.env.APP_URL || 'https://freeagentportal.com',
   },
   images: {
     remotePatterns: [

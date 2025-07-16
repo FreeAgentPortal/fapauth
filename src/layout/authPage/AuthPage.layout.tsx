@@ -66,7 +66,7 @@ const AuthPage = (props: Props) => {
 
       if (redirect) return performRedirect(redirect + `?token=${token}`);
 
-      performRedirect(process.env.ENV === 'development' ? `http://localhost:3000/home?token=${token}` : `https://portal.pyreprocessing.com/home${user ? `?token=${token}` : ''}`);
+      performRedirect(process.env.NEXT_PUBLIC_APP_URL as string + `?token=${token}`);
     }
   }, [token, redirect, partner]);
 
