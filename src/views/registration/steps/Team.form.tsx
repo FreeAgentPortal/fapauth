@@ -31,10 +31,10 @@ const Team = ({ onNext, onBack, defaultValues, userDefaults }: TeamFormProps) =>
     getValues,
   } = useForm<TeamFormData>({
     defaultValues: defaultValues || {
-      organizationName: 'Jacksonville Jaguars',
-      teamEmail: userDefaults?.email || 'coach@jj.edu',
-      phoneNumber: '144-345-2345',
-      website: 'jaguars.com',
+      // organizationName: 'Jacksonville Jaguars',
+      // teamEmail: userDefaults?.email || 'coach@jj.edu',
+      // phoneNumber: '144-345-2345',
+      // website: 'jaguars.com',
     },
   });
 

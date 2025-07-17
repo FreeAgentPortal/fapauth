@@ -27,12 +27,12 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
     reset,
   } = useForm<UserFormData>({
     defaultValues: defaultValues || {
-      firstName: 'test',
-      lastName: 'lastName',
-      email: 'test@test.edu',
-      password: 'Password123',
-      confirmPassword: 'Password123',
-      phoneNumber: '234-234-4234',
+      // firstName: 'test',
+      // lastName: 'lastName',
+      // email: 'test@test.edu',
+      // password: 'Password123',
+      // confirmPassword: 'Password123',
+      // phoneNumber: '234-234-4234',
     },
   });
   useEffect(() => {
