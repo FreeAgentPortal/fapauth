@@ -9,15 +9,24 @@ type Props = {
   maskClosable?: boolean;
   centered?: boolean;
   footer?: React.ReactNode;
+  onClose?: () => void;
 };
 
-const Modal = ({ open, children, closable = true, maskClosable = true, centered = true, footer = null }: Props) => {
+const Modal = ({ open, children, closable = true, maskClosable = true, centered = true, footer = null, onClose }: Props) => {
   if (!open) return null;
 
+  const handleClose = () => {
+    if (onClose) onClose();
+  };
+
   return (
-    <div className={styles.backdrop} onClick={maskClosable ? () => {} : undefined}>
+    <div className={styles.backdrop} onClick={maskClosable ? handleClose : undefined}>
       <div className={`${styles.modal} ${centered ? styles.centered : ''}`} onClick={(e) => e.stopPropagation()}>
-        {closable && <button className={styles.closeBtn}>&times;</button>}
+        {closable && (
+          <button className={styles.closeBtn} onClick={handleClose}>
+            &times;
+          </button>
+        )}
         <div className={styles.content}>{children}</div>
         {footer && <div className={styles.footer}>{footer}</div>}
       </div>
