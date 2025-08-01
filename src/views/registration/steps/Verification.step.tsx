@@ -16,7 +16,7 @@ const Verification = ({ email }: VerificationProps) => {
     <div className={styles.container}>
       <h2 className={styles.heading}>Verify Your Email</h2>
       <div className={styles.contentContainer}>
-        <p>Thank you for registering with Free Agent Portal.</p>
+        <p>Thank you for registering with The Free Agent Portal.</p>
 
         <p>
           We&apos;ve sent a verification email to:

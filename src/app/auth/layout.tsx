@@ -9,28 +9,28 @@ import Footer from '@/layout/footer/Footer.layout';
 import AuthPage from '@/layout/authPage/AuthPage.layout';
 import Loader from '@/components/loader/Loader.component';
 export const metadata: Metadata = {
-  metadataBase: new URL('https://freeagentportal.com'),
-  title: 'Authentication | Free Agent Portal',
+  metadataBase: new URL('https://thefreeagentportal.com'),
+  title: 'Authentication | The Free Agent Portal',
   description: 'Access your Free Agent Portal account or register a new one. Built for athletes, teams, and scouts.',
   openGraph: {
-    title: 'Authentication | Free Agent Portal',
-    description: 'Log in or register to access your profile on the Free Agent Portal.',
-    url: 'https://freeagentportal.com/auth',
-    siteName: 'Free Agent Portal',
+    title: 'Authentication | The Free Agent Portal',
+    description: 'Log in or register to access your profile on The Free Agent Portal.',
+    url: 'https://thefreeagentportal.com/auth',
+    siteName: 'The Free Agent Portal',
     images: [
       {
         url: '/images/og-default.jpg',
         width: 1200,
         height: 630,
-        alt: 'Free Agent Portal Auth',
+        alt: 'The Free Agent Portal Auth',
       },
     ],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Authentication | Free Agent Portal',
-    description: 'Log in or sign up for the Free Agent Portal.',
+    title: 'Authentication | The Free Agent Portal',
+    description: 'Log in or sign up for The Free Agent Portal.',
     images: ['/images/og-default.jpg'],
   },
 };
@@ -45,7 +45,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <div className={styles.authContainer}>
           <Suspense fallback={<Loader />}>
             <AuthPage>
-              <Image src={`/images/fap icon.png`} alt="Free Agent Portal Logo" priority width={160} height={160} />
+              <Image src={`/images/fap icon.png`} alt="The Free Agent Portal Logo" priority width={160} height={160} />
               <ReactQueryProvider>
                 <main className={styles.authModal}>{children}</main>
               </ReactQueryProvider>

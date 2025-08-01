@@ -5,27 +5,27 @@ import Link from 'next/link';
 import ClaimProfile from '@/views/claimProfile/ClaimProfile.view';
 
 export const metadata: Metadata = {
-  title: 'Claim Your Profile | Free Agent Portal',
-  description: 'Claim your profile on the Free Agent Portal to connect with athletes, teams, and scouts.',
+  title: 'Claim Your Profile | The Free Agent Portal',
+  description: 'Claim your profile on The Free Agent Portal to connect with athletes, teams, and scouts.',
   robots: 'noindex, nofollow',
   openGraph: {
-    title: 'Claim Your Profile | Free Agent Portal',
+    title: 'Claim Your Profile | The Free Agent Portal',
     description: 'Claim your profile to start connecting with athletes, teams, and scouts.',
-    url: 'https://freeagentportal.com/auth/claim',
-    siteName: 'Free Agent Portal',
+    url: 'https://thefreeagentportal.com/auth/claim',
+    siteName: 'The Free Agent Portal',
     images: [
       {
         url: '/images/og-default.jpg',
         width: 1200,
         height: 630,
-        alt: 'Free Agent Portal Claim Profile',
+        alt: 'The Free Agent Portal Claim Profile',
       },
     ],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Claim Your Profile | Free Agent Portal',
+    title: 'Claim Your Profile | The Free Agent Portal',
     description: 'Claim your profile to connect with athletes, teams, and scouts.',
     images: ['/images/og-default.jpg'],
   },
