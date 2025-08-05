@@ -222,6 +222,14 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
               width: '18px',
               height: '18px',
               accentColor: '#ffffff',
+              appearance: 'auto',
+              WebkitAppearance: 'checkbox',
+              minWidth: '18px',
+              minHeight: '18px',
+              cursor: 'pointer',
+              border: '2px solid rgba(255, 255, 255, 0.5)',
+              borderRadius: '3px',
+              background: 'transparent',
             }}
           />
           <label
@@ -231,6 +239,10 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
               lineHeight: '1.4',
               cursor: 'pointer',
               flex: 1,
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none',
+              WebkitTapHighlightColor: 'transparent',
             }}
           >
             I agree to the{' '}
@@ -246,6 +258,8 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
                 padding: 0,
                 cursor: loadingTerms ? 'wait' : 'pointer',
                 fontSize: 'inherit',
+                WebkitTouchCallout: 'none',
+                WebkitTapHighlightColor: 'transparent',
               }}
             >
               {loadingTerms ? 'Loading...' : 'Terms and Conditions'}
@@ -268,6 +282,14 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
               width: '18px',
               height: '18px',
               accentColor: '#ffffff',
+              appearance: 'auto',
+              WebkitAppearance: 'checkbox',
+              minWidth: '18px',
+              minHeight: '18px',
+              cursor: 'pointer',
+              border: '2px solid rgba(255, 255, 255, 0.5)',
+              borderRadius: '3px',
+              background: 'transparent',
             }}
           />
           <label
@@ -277,6 +299,10 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
               lineHeight: '1.4',
               cursor: 'pointer',
               flex: 1,
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none',
+              WebkitTapHighlightColor: 'transparent',
             }}
           >
             I agree to the{' '}
@@ -292,6 +318,8 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
                 padding: 0,
                 cursor: loadingPrivacy ? 'wait' : 'pointer',
                 fontSize: 'inherit',
+                WebkitTouchCallout: 'none',
+                WebkitTapHighlightColor: 'transparent',
               }}
             >
               {loadingPrivacy ? 'Loading...' : 'Privacy Policy'}
