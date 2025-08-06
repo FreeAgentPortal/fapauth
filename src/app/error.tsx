@@ -45,7 +45,7 @@ export default function Error({ error, reset }: ErrorProps) {
         {/* Main Message */}
         <h1 className={styles.title}>Something went wrong!</h1>
         <p className={styles.subtitle}>
-          The play broke down! We've encountered an unexpected error while processing your request.
+          The play broke down! We&apos;ve encountered an unexpected error while processing your request.
         </p>
 
         {/* Helpful Message */}

@@ -50,7 +50,7 @@ export default function NotFound() {
 
         {/* Main Message */}
         <h1 className={styles.title}>Page Not Found</h1>
-        <p className={styles.subtitle}>Looks like you've wandered off the field! The page you're looking for doesn't exist.</p>
+        <p className={styles.subtitle}>Looks like you&apos;ve wandered off the field! The page you&apos;re looking for doesn&apos;t exist.</p>
 
         {/* Helpful Message */}
         <div className={styles.helpText}>

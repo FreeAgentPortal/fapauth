@@ -116,7 +116,7 @@ const ResetPassword = ({ token }: Props) => {
   return (
     <AuthModal title="Reset Your Password" showBackButton>
       <form onSubmit={handleSubmit(onSubmit)} className={`${formStyles.form} ${styles.form}`}>
-        <p className={styles.instructions}>Please enter your new password below. Make sure it's secure and easy for you to remember.</p>
+        <p className={styles.instructions}>Please enter your new password below. Make sure it&apos;s secure and easy for you to remember.</p>
 
         <div className={formStyles.field}>
           <label htmlFor="password">New Password</label>
