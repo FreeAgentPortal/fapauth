@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from '@/utils/axios';
 import { useRouter } from 'next/navigation';
+import { CryptoService } from '@/utils/CryptoService';
 import { useSearchStore as store } from '@/state/search';
 import { useInterfaceStore } from '@/state/interface';
-import { CryptoService } from '@/utils/CryptoService';
 
 function cleanParams(params: Record<string, any>): Record<string, any> {
   const cleaned: Record<string, any> = {};
@@ -62,7 +62,7 @@ const fetchData = async (url: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE',
       });
       break;
     case 'DELETE':
-      response = await axios.delete(url, { data });
+      response = await axios.delete(url, { data, headers: { ...options?.headers } });
       break;
     default:
       throw new Error(`Unsupported method: ${method}`);
@@ -80,6 +80,7 @@ const useApiHook = (options: {
   filter?: any;
   keyword?: string;
   sort?: any;
+  limit?: number;
   include?: any;
   queriesToInvalidate?: string[];
   successMessage?: string;
@@ -103,6 +104,7 @@ const useApiHook = (options: {
     filter,
     sort,
     include,
+    limit,
     queriesToInvalidate,
     successMessage,
     redirectUrl,
@@ -126,7 +128,7 @@ const useApiHook = (options: {
         defaultFilter: filter,
         defaultSort: sort,
         defaultInclude: include,
-        headers: headers,
+        defaultPageLimit: limit,
       }),
     enabled: enabled && method === 'GET',
     refetchOnWindowFocus,
@@ -134,7 +136,7 @@ const useApiHook = (options: {
     staleTime: staleTime,
     gcTime: cacheTime,
     meta: {
-      errorMessage: 'An error occurred while fetching data',
+      errorMessage: `An error occurred while fetching data for ${Array.isArray(key) ? key.join(', ') : key}`,
     },
   });
 
@@ -161,6 +163,7 @@ const useApiHook = (options: {
       }
     },
     onError: (error: any) => {
+      console.error(`Error in useApiHook for ${Array.isArray(key) ? key.join(', ') : key}:`, error);
       const messageTxt = error.response && error.response.data.message ? error.response.data.message : error.message;
 
       addAlert({ message: messageTxt, type: 'error', duration: 10000 });
