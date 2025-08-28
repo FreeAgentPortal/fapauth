@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Roboto_Condensed } from 'next/font/google';
 import './globals.css';
 import styles from './layout.module.scss';
 import AlertCenter from '@/layout/alertCenter/AlertCenter.layout';
@@ -10,13 +10,8 @@ import Image from 'next/image';
 import ReactQueryProvider from '@/providers/ReactQueryProvider';
 import Footer from '@/layout/footer/Footer.layout';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const roboto = Roboto_Condensed({
+  variable: '--font-roboto',
   subsets: ['latin'],
 });
 
@@ -39,7 +34,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/images/fap icon.png',
-        width: 160,
+        width: 180,
         height: 160,
         alt: 'The Free Agent Portal Logo',
       },
@@ -94,16 +89,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${roboto.variable}`}>
         <div className={styles.authLayout}>
-          <video src="https://res.cloudinary.com/dsltlng97/video/upload/v1751466457/stadium-lights_vi9bhe.mp4" id="video" muted loop autoPlay className={styles.authBackground} />
           <AlertCenter />
-          {/* <div className={styles.authBackground} /> */}
           <div className={styles.authOverlay}>
             <div className={styles.authContainer}>
               <Suspense fallback={<Loader />}>
                 <AuthPage>
-                  <Image src={`/images/fap icon.png`} alt="The Free Agent Portal Logo" priority width={160} height={160} />
+                  <Image src={`/images/fap icon.png`} alt="The Free Agent Portal Logo" priority width={180} height={160} />
                   <ReactQueryProvider>
                     <main className={styles.authModal}>{children}</main>
                   </ReactQueryProvider>

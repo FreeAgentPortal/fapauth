@@ -5,7 +5,11 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  text-align: center;
+  text-align: left;
+
+  @include tablet {
+    text-align: center;
+  }
   .authTitle {
     font-size: 1.75rem;
     font-weight: 600;

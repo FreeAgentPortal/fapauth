@@ -1,5 +1,5 @@
 // styles/auth.scss
-@use "@/styles/globals.scss" as *;
+@use '@/styles/globals.scss' as *;
 
 .authLayout {
   position: relative;
@@ -10,16 +10,7 @@
   align-items: center;
   background-color: #000; // fallback
   overflow-y: scroll;
-  
- 
-  .authBackground {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    // background: url("/images/stadium-blur.webp") center center / cover no-repeat;
-    filter: blur(8px) brightness(0.5);
-    z-index: 0;
-  }
+
   .authOverlay {
     position: relative;
     z-index: 1;
@@ -49,13 +40,11 @@
     }
   }
   .authModal {
-    backdrop-filter: blur(16px) saturate(120%);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-image: linear-gradient(135deg, rgba(22, 29, 41, 1) 0%, rgba(36, 45, 62, 0.8) 100%);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 1rem;
     padding: 2rem;
     width: 100%;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     color: white;
 
     @include mobile {

@@ -26,11 +26,25 @@ const AuthPage = (props: Props) => {
   const partner = searchParams.get('partner') as string;
 
   const performRedirect = (to: string) => {
-    // console.log("We're redirecting to", to);
     window.location.href = to as any;
 
     // after redirect dispatch the logout action to keep the token from being stored indefinitely
     logout();
+  };
+
+  const getGoodRedirectName = (title: string) => {
+    switch (title?.split(/[/.]/)[2][0].toUpperCase() + title?.split(/[/.]/)[2].slice(1).toLowerCase()) {
+      case 'Thefreeagentportal':
+        return 'Public Portal';
+      case 'Athlete':
+        return 'Athlete Portal';
+      case 'Team':
+        return 'Team Portal';
+      case 'Admin':
+        return 'Admin Portal';
+      default:
+        return 'The Free Agent Portal';
+    }
   };
 
   useEffect(() => {
@@ -39,10 +53,10 @@ const AuthPage = (props: Props) => {
     try {
       if (redirect) {
         setRedirectUrl(redirect);
-        setRedirectName(redirect?.split(/[/.]/)[2][0].toUpperCase() + redirect?.split(/[/.]/)[2].slice(1).toLowerCase());
+        setRedirectName(getGoodRedirectName(redirect));
       }
       if (redirectUrl) {
-        setRedirectName(redirectUrl?.split(/[/.]/)[2][0].toUpperCase() + redirectUrl?.split(/[/.]/)[2].slice(1).toLowerCase());
+        setRedirectName(getGoodRedirectName(redirectUrl));
       }
     } catch {
       setRedirectName('');
@@ -51,22 +65,15 @@ const AuthPage = (props: Props) => {
 
   useEffect(() => {
     if (partner) {
-      // setPartner(partner);
     }
     if (user) {
       setAuthToken(user.token as any);
     }
 
     if (token) {
-      // if (!user?.isEmailVerified) {
-      //   // setCurrentSignUpStep(5);
-      //   router.push('/signup');
-      //   return;
-      // }
-
       if (redirect) return performRedirect(redirect + `?token=${token}`);
 
-      performRedirect(process.env.NEXT_PUBLIC_APP_URL as string + `?token=${token}`);
+      performRedirect((process.env.NEXT_PUBLIC_APP_URL as string) + `?token=${token}`);
     }
   }, [token, redirect, partner]);
 

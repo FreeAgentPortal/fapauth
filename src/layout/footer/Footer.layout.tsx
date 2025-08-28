@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import Link from 'next/link';
 import styles from './Footer.module.scss';
 
@@ -16,7 +15,7 @@ const Footer = () => {
         </Link>
       </nav>
       <span className={styles.trademark}>The Free Agent Portal® {year}</span>
-      <span className={styles.links}>A joint venture service of Draft Diamonds LLC and Sterling Haven LLC, All Rights Reserved</span>
+      <span className={styles.trademark}>A joint venture service of Draft Diamonds LLC and Sterling Haven LLC, All Rights Reserved</span>
     </footer>
   );
 };

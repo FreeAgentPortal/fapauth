@@ -41,20 +41,27 @@
       align-items: center;
       justify-content: flex-start;
       flex-direction: column;
+      color: white;
       .banner {
         position: fixed;
         top: 0px;
         right: 50px;
         z-index: 200;
-        background: var(--color-bg-gradient);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+
         padding: 50px 30px 20px 30px;
         font-weight: 900;
-        // color: white;
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
-        @include mobile {
+        @include tablet {
           padding: 20px 40px;
           font-size: 15px;
+          text-align: center;
+          right: 0;
+          position: relative;
+          width: 100%;
         }
       }
     }
