@@ -10,6 +10,7 @@ import { LoaderProvider } from '@/components/progressBar/LoaderProvider.componen
 
 import setAuthToken from '@/utils/setAuthToken';
 import NextTopLoader from 'nextjs-toploader';
+import getRedirectLink from '@/utils/getRedirectLink';
 type Props = {
   children: React.ReactNode;
 };
@@ -64,6 +65,7 @@ const AuthPage = (props: Props) => {
   }, [router, redirect, redirectUrl]);
 
   useEffect(() => {
+    console.log(user);
     if (partner) {
     }
     if (user) {
@@ -72,8 +74,10 @@ const AuthPage = (props: Props) => {
 
     if (token) {
       if (redirect) return performRedirect(redirect + `?token=${token}`);
-
-      performRedirect((process.env.NEXT_PUBLIC_APP_URL as string) + `?token=${token}`);
+      // get the users profileRefs map, get the keys and turn it into a string
+      const profileRefs = Object.keys(user?.profileRefs as Record<string, any>).join(',');
+      const redirectLink = getRedirectLink(profileRefs);
+      performRedirect(redirectLink + `?token=${token}&profileRefs=${profileRefs}`);
     }
   }, [token, redirect, partner]);
 

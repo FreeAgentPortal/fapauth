@@ -34,7 +34,7 @@ export default function LoginForm({ onSuccess }: Props) {
         formData: data,
       },
       {
-        onSuccess: (response: any) => {
+        onSuccess: (response: any) => { 
           if (response?.token && onSuccess) {
             onSuccess(response.token, response);
           }
