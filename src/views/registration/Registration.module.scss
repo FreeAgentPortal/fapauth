@@ -10,9 +10,9 @@
 .rolesGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.5rem;
   justify-content: flex-start;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .roleBtn {
@@ -58,7 +58,6 @@
 
 .skipBtn {
   @extend .continueBtn;
-  margin-top: 0.5rem;
   background: rgba(255, 255, 255, 0.1);
 }
 

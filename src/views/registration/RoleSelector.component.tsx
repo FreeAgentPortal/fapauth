@@ -1,56 +1,46 @@
 'use client';
-import React, { useState } from 'react';
 import styles from './Registration.module.scss';
 import { useRouter } from 'next/navigation';
 
 const rolesList = ['athlete'];
 const RoleSelector = () => {
-  const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const router = useRouter();
 
-  const toggleRole = (role: string) => {
-    setSelectedRole((prev) => (prev === role ? null : role));
-  };
-
-  const handleContinue = () => {
-    if (selectedRole) {
-      router.push(`/auth/register/flow?role=${selectedRole}`);
-    }
+  const handleRole = (role: string) => {
+    router.push(`/auth/register/flow?role=${role}`);
   };
 
   const handleSkip = () => {
     router.push('/auth/register/flow');
   };
 
+  const getArticle = (word: string) => {
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    return vowels.includes(word[0].toLowerCase()) ? 'an' : 'a';
+  };
+
   return (
     <div className="">
       <div className={styles.rolePrompt}>
-        <p>First, who are you? Please select a role:</p>
+        <p>What is your role?</p>
       </div>
 
       <div className={styles.rolesGrid}>
         {rolesList.map((role) => (
           <button
+            className={styles.skipBtn}
+            onClick={() => {
+              handleRole(role);
+            }}
             key={role}
-            className={`${styles.roleBtn} ${
-              selectedRole === role ? styles.active : ''
-            }`}
-            onClick={() => toggleRole(role)}
           >
-            {role.charAt(0).toUpperCase() + role.slice(1)}
+            Signup as {getArticle(role)} {role.charAt(0).toUpperCase() + role.slice(1)}
           </button>
         ))}
       </div>
 
-      <button
-        className={styles.continueBtn}
-        onClick={handleContinue}
-        disabled={!selectedRole}
-      >
-        Continue →
-      </button>
       <button className={styles.skipBtn} onClick={handleSkip}>
-        Continue Without a Profile
+        Signup as a Guest
       </button>
     </div>
   );
