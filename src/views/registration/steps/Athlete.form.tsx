@@ -23,17 +23,12 @@ type AthleteFormData = {
   agreeToTerms: boolean;
 };
 
-const Athlete = ({
-  onNext,
-  onBack,
-  defaultValues,
-  userDefaults,
-}: AthleteFormProps) => {
+const Athlete = ({ onNext, onBack, defaultValues, userDefaults }: AthleteFormProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [agreementContent, setAgreementContent] = useState<string>('');
   const [loadingAgreement, setLoadingAgreement] = useState(false);
 
-  const { data: agreementData  } = useApiHook({
+  const { data: agreementData } = useApiHook({
     method: 'GET',
     url: '/auth/legal/athlete-agreement',
     key: 'athlete-agreement',
@@ -48,7 +43,7 @@ const Athlete = ({
     watch,
   } = useForm<AthleteFormData>({
     defaultValues: defaultValues || {
-      fullName: `${userDefaults?.firstName || ''} ${userDefaults?.lastName || ''}`.trim(), 
+      fullName: `${userDefaults?.firstName || ''} ${userDefaults?.lastName || ''}`.trim(),
       email: userDefaults?.email || '',
       contactNumber: '234-234-4234',
       birthdate: new Date('12/12/2000').toISOString().split('T')[0],
@@ -88,10 +83,7 @@ const Athlete = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <h2 className={styles.heading}>Athlete Profile</h2>
-      <p>
-        Here you will build information about yourself to help teams and scouts
-        find you.
-      </p>
+      <p>Here you will build information about yourself to help teams and scouts find you.</p>
 
       <div className={styles.field}>
         <label>Full Name</label>
@@ -109,7 +101,7 @@ const Athlete = ({
 
       <div className={styles.field}>
         <label>Email</label>
-        <input type="email" value={userDefaults?.email ?? ""} />
+        <input type="email" value={userDefaults?.email ?? ''} />
       </div>
       <div className={styles.field}>
         <label>Contact Number</label>
@@ -119,36 +111,24 @@ const Athlete = ({
             required: 'Contact number is required',
             validate: {
               validFormat: (value) => {
-                const phoneRegex =
-                  /^(?:\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4})$/;
+                const phoneRegex = /^(\+?[1-9]\d{0,3}[\s\-\.\(\)]?)?([\(\s\-\.]?\d{1,4}[\)\s\-\.]?){1,4}\d{1,4}$/;
                 return phoneRegex.test(value) || 'Invalid phone number format';
               },
             },
           })}
         />
-        {errors.contactNumber && (
-          <span className={styles.error}>{errors.contactNumber.message}</span>
-        )}
+        {errors.contactNumber && <span className={styles.error}>{errors.contactNumber.message}</span>}
       </div>
 
       <div className={styles.field}>
         <label>Date of Birth</label>
-        <input
-          type="date"
-          {...register('birthdate', { required: 'Birthdate is required' })}
-        />
-        {errors.birthdate && (
-          <span className={styles.error}>{errors.birthdate.message}</span>
-        )}
+        <input type="date" {...register('birthdate', { required: 'Birthdate is required' })} />
+        {errors.birthdate && <span className={styles.error}>{errors.birthdate.message}</span>}
       </div>
 
       <div className={styles.field}>
         <label>College (optional)</label>
-        <input
-          type="text"
-          placeholder="e.g. University of Georgia"
-          {...register('college')}
-        />
+        <input type="text" placeholder="e.g. University of Georgia" {...register('college')} />
       </div>
 
       <div className={styles.field}>
@@ -156,23 +136,23 @@ const Athlete = ({
           <input
             type="checkbox"
             id="agreeToTerms"
-            {...register('agreeToTerms', { 
-              required: 'You must agree to the Athlete Agreement to continue' 
+            {...register('agreeToTerms', {
+              required: 'You must agree to the Athlete Agreement to continue',
             })}
             style={{
               marginTop: '0.25rem',
               width: '18px',
               height: '18px',
-              accentColor: '#ffffff'
+              accentColor: '#ffffff',
             }}
           />
-          <label 
-            htmlFor="agreeToTerms" 
-            style={{ 
-              fontSize: '0.9rem', 
+          <label
+            htmlFor="agreeToTerms"
+            style={{
+              fontSize: '0.9rem',
               lineHeight: '1.4',
               cursor: 'pointer',
-              flex: 1
+              flex: 1,
             }}
           >
             I agree to the{' '}
@@ -187,16 +167,14 @@ const Athlete = ({
                 border: 'none',
                 padding: 0,
                 cursor: loadingAgreement ? 'wait' : 'pointer',
-                fontSize: 'inherit'
+                fontSize: 'inherit',
               }}
             >
               {loadingAgreement ? 'Loading...' : 'Athlete Agreement'}
             </button>
           </label>
         </div>
-        {errors.agreeToTerms && (
-          <span className={styles.error}>{errors.agreeToTerms.message}</span>
-        )}
+        {errors.agreeToTerms && <span className={styles.error}>{errors.agreeToTerms.message}</span>}
       </div>
 
       <div className={styles.btnContainer}>
@@ -205,13 +183,13 @@ const Athlete = ({
             ← Back
           </button>
         )}
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className={styles.submit}
           disabled={!agreeToTerms}
           style={{
             opacity: !agreeToTerms ? 0.6 : 1,
-            cursor: !agreeToTerms ? 'not-allowed' : 'pointer'
+            cursor: !agreeToTerms ? 'not-allowed' : 'pointer',
           }}
         >
           Next →
@@ -219,8 +197,8 @@ const Athlete = ({
       </div>
 
       {/* Agreement Modal */}
-      <Modal 
-        open={isModalOpen} 
+      <Modal
+        open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         closable={true}
         maskClosable={true}
@@ -234,7 +212,7 @@ const Athlete = ({
               border: 'none',
               borderRadius: '0.5rem',
               cursor: 'pointer',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
             }}
           >
             Close
@@ -242,25 +220,25 @@ const Athlete = ({
         }
       >
         <div style={{ maxHeight: '70vh', overflow: 'auto' }}>
-          <h3 style={{ 
-            color: '#fff', 
-            fontSize: '1.25rem', 
-            marginBottom: '1rem',
-            borderBottom: '2px solid #eee',
-            paddingBottom: '0.5rem'
-          }}>
+          <h3
+            style={{
+              color: '#fff',
+              fontSize: '1.25rem',
+              marginBottom: '1rem',
+              borderBottom: '2px solid #eee',
+              paddingBottom: '0.5rem',
+            }}
+          >
             Athlete Agreement
           </h3>
-          <div style={{ 
-            color: '#fff', 
-            lineHeight: '1.6',
-            fontSize: '0.95rem'
-          }}>
-            {agreementContent ? (
-              <div dangerouslySetInnerHTML={{ __html:  parser(agreementContent) }} />
-            ) : (
-              <p>Loading agreement content...</p>
-            )}
+          <div
+            style={{
+              color: '#fff',
+              lineHeight: '1.6',
+              fontSize: '0.95rem',
+            }}
+          >
+            {agreementContent ? <div dangerouslySetInnerHTML={{ __html: parser(agreementContent) }} /> : <p>Loading agreement content...</p>}
           </div>
         </div>
       </Modal>
