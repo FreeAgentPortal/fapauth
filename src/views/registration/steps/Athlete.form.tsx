@@ -111,7 +111,7 @@ const Athlete = ({ onNext, onBack, defaultValues, userDefaults }: AthleteFormPro
             required: 'Contact number is required',
             validate: {
               validFormat: (value) => {
-                const phoneRegex = /^(\+?[1-9]\d{0,3}[\s\-\.\(\)]?)?([\(\s\-\.]?\d{1,4}[\)\s\-\.]?){1,4}\d{1,4}$/;
+                const phoneRegex = /^(\+?[1-9]\d{0,3}[\s\-\.\(\)]?)?[\(\s\-\.]?[\d\s\-\.\(\)]{7,20}$/;
                 return phoneRegex.test(value) || 'Invalid phone number format';
               },
             },

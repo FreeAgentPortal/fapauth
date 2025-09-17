@@ -174,7 +174,7 @@ const User = ({ onNext, defaultValues }: UserFormProps) => {
             required: 'Phone number is required',
             validate: {
               validFormat: (value) => {
-                const phoneRegex = /^(?:\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4}|\d{10}|\d{3}\.\d{3}\.\d{4}|\+1 \(\d{3}\) \d{3}-\d{4})$/;
+                const phoneRegex = /^(\+?[1-9]\d{0,3}[\s\-\.\(\)]?)?[\(\s\-\.]?[\d\s\-\.\(\)]{7,20}$/;
                 return phoneRegex.test(value) || 'Invalid phone number format';
               },
             },
