@@ -45,9 +45,9 @@ const Athlete = ({ onNext, onBack, defaultValues, userDefaults }: AthleteFormPro
     defaultValues: defaultValues || {
       fullName: `${userDefaults?.firstName || ''} ${userDefaults?.lastName || ''}`.trim(),
       email: userDefaults?.email || '',
-      contactNumber: '234-234-4234',
+      // contactNumber: '234-234-4234',
       birthdate: new Date('12/12/2000').toISOString().split('T')[0],
-      college: 'University of Georgia',
+      // college: 'University of Georgia',
       agreeToTerms: false,
     },
   });
