@@ -39,9 +39,10 @@ const RoleSelector = () => {
         ))}
       </div>
 
-      <button className={styles.skipBtn} onClick={handleSkip}>
+{/*      <button className={styles.skipBtn} onClick={handleSkip}>
         Signup as a Guest
       </button>
+*/}
     </div>
   );
 };
